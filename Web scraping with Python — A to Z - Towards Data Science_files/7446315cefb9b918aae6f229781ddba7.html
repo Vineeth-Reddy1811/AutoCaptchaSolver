@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://towardsdatascience.com/media/7446315cefb9b918aae6f229781ddba7 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>author_gender.py – Medium</title><meta name="description" content="GitHub Gist: instantly share code, notes, and snippets."><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style><style type="text/css">
+:root .mw > #rcnt > #center_col > #taw > .c,
+:root .mw > #rcnt > #center_col > #taw > #tvcap > .c,
+:root .ch[onclick="ga(this,event)"]
+{ display: none !important; }</style></head><body><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./ae4d3f18240a5a309016f670df8ba1c2.js" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-a9a1cf2ca01efd362bfa52312712ae94.css"><div id="gist94178214" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-author_gender-py" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-python ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tbody><tr>
+        <td id="file-author_gender-py-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-author_gender-py-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">author_gender</span>(<span class="pl-smi">all_authors</span>, <span class="pl-smi">threshold</span><span class="pl-k">=</span><span class="pl-c1">0.6</span>):</td>
+      </tr>
+      <tr>
+        <td id="file-author_gender-py-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-author_gender-py-LC2" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> key, value <span class="pl-k">in</span> all_authors.items():</td>
+      </tr>
+      <tr>
+        <td id="file-author_gender-py-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-author_gender-py-LC3" class="blob-code blob-code-inner js-file-line">        <span class="pl-c"><span class="pl-c">#</span> Ensure the author being evaluated has not been enriched using the API — this avoids unnecessary API calls</span></td>
+      </tr>
+      <tr>
+        <td id="file-author_gender-py-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-author_gender-py-LC4" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">if</span> <span class="pl-s"><span class="pl-pds">'</span>gender<span class="pl-pds">'</span></span> <span class="pl-k">not</span> <span class="pl-k">in</span> value:</td>
+      </tr>
+      <tr>
+        <td id="file-author_gender-py-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-author_gender-py-LC5" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">try</span>:</td>
+      </tr>
+      <tr>
+        <td id="file-author_gender-py-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-author_gender-py-LC6" class="blob-code blob-code-inner js-file-line">               <span class="pl-c"><span class="pl-c">#</span> Retrieve the probability of the gender prediction of the author </span></td>
+      </tr>
+      <tr>
+        <td id="file-author_gender-py-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-author_gender-py-LC7" class="blob-code blob-code-inner js-file-line">               <span class="pl-c"><span class="pl-c">#</span> and compare it to the threshold set in line 11.</span></td>
+      </tr>
+      <tr>
+        <td id="file-author_gender-py-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-author_gender-py-LC8" class="blob-code blob-code-inner js-file-line">                result <span class="pl-k">=</span> genderize_api_connect(value[<span class="pl-s"><span class="pl-pds">'</span>first_name<span class="pl-pds">'</span></span>])</td>
+      </tr>
+      <tr>
+        <td id="file-author_gender-py-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-author_gender-py-LC9" class="blob-code blob-code-inner js-file-line">                <span class="pl-k">if</span> result[<span class="pl-s"><span class="pl-pds">'</span>probability<span class="pl-pds">'</span></span>] <span class="pl-k">&gt;</span> threshold:</td>
+      </tr>
+      <tr>
+        <td id="file-author_gender-py-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-author_gender-py-LC10" class="blob-code blob-code-inner js-file-line">                    <span class="pl-c"><span class="pl-c">#</span> Add the gender to the author dictionary object and ensure that it is capitalized.</span></td>
+      </tr>
+      <tr>
+        <td id="file-author_gender-py-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-author_gender-py-LC11" class="blob-code blob-code-inner js-file-line">                    value[<span class="pl-s"><span class="pl-pds">'</span>gender<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> result[<span class="pl-s"><span class="pl-pds">'</span>gender<span class="pl-pds">'</span></span>].capitalize()</td>
+      </tr>
+      <tr>
+        <td id="file-author_gender-py-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-author_gender-py-LC12" class="blob-code blob-code-inner js-file-line">                    <span class="pl-c"><span class="pl-c">#</span> Handle exceptions, specifically if no gender is returned from the API. </span></td>
+      </tr>
+      <tr>
+        <td id="file-author_gender-py-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-author_gender-py-LC13" class="blob-code blob-code-inner js-file-line">                    <span class="pl-c"><span class="pl-c">#</span> This case is handled by assigning the gender as “Unknown”.</span></td>
+      </tr>
+      <tr>
+        <td id="file-author_gender-py-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-author_gender-py-LC14" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">except</span> <span class="pl-c1">KeyError</span>:</td>
+      </tr>
+      <tr>
+        <td id="file-author_gender-py-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-author_gender-py-LC15" class="blob-code blob-code-inner js-file-line">                value[<span class="pl-s"><span class="pl-pds">'</span>gender<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Unknown<span class="pl-pds">"</span></span></td>
+      </tr>
+      <tr>
+        <td id="file-author_gender-py-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-author_gender-py-LC16" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">return</span> all_authors</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/kassuts/ae4d3f18240a5a309016f670df8ba1c2/raw/3d5374015a9fed0fd74a10ac28fa90360dd90679/author_gender.py" style="float:right">view raw</a>
+        <a href="https://gist.github.com/kassuts/ae4d3f18240a5a309016f670df8ba1c2#file-author_gender-py">author_gender.py</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200;function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height); resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);}maybeResize();</script></body></html>

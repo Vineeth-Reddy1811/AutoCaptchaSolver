@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://towardsdatascience.com/media/7a3ca0a8e99e18feb3fd7fd439bc0f18 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>random_headers_short.py – Medium</title><meta name="description" content="GitHub Gist: instantly share code, notes, and snippets."><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style><style type="text/css">
+:root .mw > #rcnt > #center_col > #taw > .c,
+:root .mw > #rcnt > #center_col > #taw > #tvcap > .c,
+:root .ch[onclick="ga(this,event)"]
+{ display: none !important; }</style></head><body><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./03e5eb66dc65a49aa196dc9fb602ffeb.js" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-a9a1cf2ca01efd362bfa52312712ae94.css"><div id="gist94112405" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-random_headers_short-py" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-python ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tbody><tr>
+        <td id="file-random_headers_short-py-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-random_headers_short-py-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Create a dict of accept headers for each user-agent.</span></td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-random_headers_short-py-LC2" class="blob-code blob-code-inner js-file-line">accepts <span class="pl-k">=</span> {<span class="pl-s"><span class="pl-pds">"</span>Firefox<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8<span class="pl-pds">"</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-random_headers_short-py-LC3" class="blob-code blob-code-inner js-file-line">            <span class="pl-s"><span class="pl-pds">"</span>Safari, Chrome<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>application/xml,application/xhtml+xml,text/html;q=0.9, text/plain;q=0.8,image/png,*/*;q=0.5<span class="pl-pds">"</span></span>}</td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-random_headers_short-py-LC4" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-random_headers_short-py-LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Get a random user-agent. We used Chrome and Firefox user agents.</span></td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-random_headers_short-py-LC6" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Getting a user agent using the fake_useragent package</span></td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-random_headers_short-py-LC7" class="blob-code blob-code-inner js-file-line">ua <span class="pl-k">=</span> UserAgent()</td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-random_headers_short-py-LC8" class="blob-code blob-code-inner js-file-line"><span class="pl-k">if</span> random.random() <span class="pl-k">&gt;</span> <span class="pl-c1">0.5</span>:</td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-random_headers_short-py-LC9" class="blob-code blob-code-inner js-file-line">    random_user_agent <span class="pl-k">=</span> ua.chrome</td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-random_headers_short-py-LC10" class="blob-code blob-code-inner js-file-line"><span class="pl-k">else</span>:</td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-random_headers_short-py-LC11" class="blob-code blob-code-inner js-file-line">    random_user_agent <span class="pl-k">=</span> ua.firefox</td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-random_headers_short-py-LC12" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-random_headers_short-py-LC13" class="blob-code blob-code-inner js-file-line">valid_accept <span class="pl-k">=</span> accepts[<span class="pl-s"><span class="pl-pds">'</span>Firefox<span class="pl-pds">'</span></span>] <span class="pl-k">if</span> random_user_agent.find(<span class="pl-s"><span class="pl-pds">'</span>Firefox<span class="pl-pds">'</span></span>) <span class="pl-k">&gt;</span> <span class="pl-c1">0</span> <span class="pl-k">else</span> accepts[<span class="pl-s"><span class="pl-pds">'</span>Safari, Chrome<span class="pl-pds">'</span></span>]</td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-random_headers_short-py-LC14" class="blob-code blob-code-inner js-file-line">headers <span class="pl-k">=</span> {<span class="pl-s"><span class="pl-pds">"</span>User-Agent<span class="pl-pds">"</span></span>: random_user_agent,</td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-random_headers_short-py-LC15" class="blob-code blob-code-inner js-file-line">          <span class="pl-s"><span class="pl-pds">"</span>Accept<span class="pl-pds">"</span></span>: valid_accept}</td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-random_headers_short-py-LC16" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-random_headers_short-py-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-random_headers_short-py-LC17" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> See below for the complete function</span></td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/ShaikeA/03e5eb66dc65a49aa196dc9fb602ffeb/raw/43edd16d234fde4eb51fa04839aed4654ec709f1/random_headers_short.py" style="float:right">view raw</a>
+        <a href="https://gist.github.com/ShaikeA/03e5eb66dc65a49aa196dc9fb602ffeb#file-random_headers_short-py">random_headers_short.py</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200;function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height); resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);}maybeResize();</script></body></html>

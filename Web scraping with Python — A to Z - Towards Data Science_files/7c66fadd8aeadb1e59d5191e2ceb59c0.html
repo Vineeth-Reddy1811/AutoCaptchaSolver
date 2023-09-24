@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://towardsdatascience.com/media/7c66fadd8aeadb1e59d5191e2ceb59c0 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>soup getting keywords – Medium</title><meta name="description" content="soup getting keywords. GitHub Gist: instantly share code, notes, and snippets."><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style><style type="text/css">
+:root .mw > #rcnt > #center_col > #taw > .c,
+:root .mw > #rcnt > #center_col > #taw > #tvcap > .c,
+:root .ch[onclick="ga(this,event)"]
+{ display: none !important; }</style></head><body><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./d83358199ef46c5379ba257ab0504262.js" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-a9a1cf2ca01efd362bfa52312712ae94.css"><div id="gist93597663" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-soup_keywords-py" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-python ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tbody><tr>
+        <td id="file-soup_keywords-py-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-soup_keywords-py-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Narrowing down the space to the article in the page</span></td>
+      </tr>
+      <tr>
+        <td id="file-soup_keywords-py-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-soup_keywords-py-LC2" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span>(since there are many other irrelevant elements in the page)</span></td>
+      </tr>
+      <tr>
+        <td id="file-soup_keywords-py-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-soup_keywords-py-LC3" class="blob-code blob-code-inner js-file-line">article <span class="pl-k">=</span> soup.find(<span class="pl-v">class_</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>article-wrapper grid row<span class="pl-pds">"</span></span>)</td>
+      </tr>
+      <tr>
+        <td id="file-soup_keywords-py-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-soup_keywords-py-LC4" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-soup_keywords-py-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-soup_keywords-py-LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Getting the keywords section </span></td>
+      </tr>
+      <tr>
+        <td id="file-soup_keywords-py-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-soup_keywords-py-LC6" class="blob-code blob-code-inner js-file-line">keyword_section <span class="pl-k">=</span> soup.find(<span class="pl-v">class_</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>keywords-section<span class="pl-pds">"</span></span>)</td>
+      </tr>
+      <tr>
+        <td id="file-soup_keywords-py-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-soup_keywords-py-LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Same as: soup.select("div.article-wrapper grid row div.keywords-section")</span></td>
+      </tr>
+      <tr>
+        <td id="file-soup_keywords-py-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-soup_keywords-py-LC8" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-soup_keywords-py-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-soup_keywords-py-LC9" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Getting a list of all keywords which are inserted into a keywords list in line 7.</span></td>
+      </tr>
+      <tr>
+        <td id="file-soup_keywords-py-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-soup_keywords-py-LC10" class="blob-code blob-code-inner js-file-line">keywords_raw <span class="pl-k">=</span> keyword_section.find_all(<span class="pl-v">class_</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>keyword<span class="pl-pds">"</span></span>)</td>
+      </tr>
+      <tr>
+        <td id="file-soup_keywords-py-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-soup_keywords-py-LC11" class="blob-code blob-code-inner js-file-line">keyword_list <span class="pl-k">=</span> [word.get_text() <span class="pl-k">for</span> word <span class="pl-k">in</span> keywords_raw]</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/ShaikeA/d83358199ef46c5379ba257ab0504262/raw/8c63e92735ecb0959dce0f7af3d368acaab1a514/soup_keywords.py" style="float:right">view raw</a>
+        <a href="https://gist.github.com/ShaikeA/d83358199ef46c5379ba257ab0504262#file-soup_keywords-py">soup_keywords.py</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200;function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height); resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);}maybeResize();</script></body></html>

@@ -1,0 +1,27 @@
+	Good morning everyone... this is startup chai teja from GNIT... The project I'm about to present is done by
+ our group AI/ML dynamic startup... Our project is about captcha.... Before starting my demo let me discuss 
+about brief idea about our project..
+
+	First of all captcha... CAPTCHA 'completely automated public turing machines to tell computers and humans apart'.
+as the name suggests captchas are used to tell machines and humans apart.
+So practically how is captcha useful..???.. say tickets of your fav concert/band are about to go online.... But some geek from his backyard 
+has booked all the tickets using some automated software... Now this guy can sell all those tickets at a much premium price... Soo to avoid
+such situations websites use Captchas to make sure nly humans are accessing the website. Captchas help to protect data so prevent scams 
+in our online lives.
+	
+	But we all know how annoying these captchas can be. Often these captchas are not even readable to people. Imagine the situation
+of visually challenged? We know that audio captchas are available but not all website implement them. Also when websites use captchas there 
+is a considerable drop in the traffic. Since the traffic is income for the websites companies loss huge sums due to captchas.
+
+	So now I'll explain our solution to this. We want to automatically solve captchas without compromising on security. So we are going to 
+do this using convolutional neural networking.... ie to be brief we will train our model to recognise different types of captcha letters... Scrap the
+captcha image from the website... Give it as input to our CNN model and recognise individual letters and paste it in the text field of the website
+THAT IS AUTO CAPTCHA SOLVER... Before any questions raise in your mind let me tell you we have thought about security and we have 
+plans how not to compromise it.
+
+	We plan to give the user limited number of "auto captcha solves" before he has to enter his password or use biometrics again like fingerprint.
+Thus this will ensure we get rid of the annoyance of captcha while not compromising on security.
+
+	This is our take on annoyances created by captcha in our life. Thank you all for your time. Have a great day😄
+	  
+

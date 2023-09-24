@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://towardsdatascience.com/media/ed5b078003b10b37a4bf7c15041adda8 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>tables_creation.py – Medium</title><meta name="description" content="GitHub Gist: instantly share code, notes, and snippets."><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style><style type="text/css">
+:root .mw > #rcnt > #center_col > #taw > .c,
+:root .mw > #rcnt > #center_col > #taw > #tvcap > .c,
+:root .ch[onclick="ga(this,event)"]
+{ display: none !important; }</style></head><body><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./913235de19bf8ec5fbea72d4ef850f10.js" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-a9a1cf2ca01efd362bfa52312712ae94.css"><div id="gist93693490" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-tables_creation-py" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-python ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tbody><tr>
+        <td id="file-tables_creation-py-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-tables_creation-py-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> mysql.connector</td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-tables_creation-py-LC2" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-tables_creation-py-LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">build_database</span>(<span class="pl-smi">db_name</span>, <span class="pl-smi">host_name</span>, <span class="pl-smi">user_name</span>, <span class="pl-smi">password</span>, <span class="pl-smi">all_sql_tables</span>):</td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-tables_creation-py-LC4" class="blob-code blob-code-inner js-file-line">  <span class="pl-c"><span class="pl-c">#</span>  Define the connection and the cursor that is used for executing the SQL commands</span></td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-tables_creation-py-LC5" class="blob-code blob-code-inner js-file-line">  my_db <span class="pl-k">=</span> mysql.connector.connect(<span class="pl-v">host</span><span class="pl-k">=</span>host_name, <span class="pl-v">user</span><span class="pl-k">=</span>user_name, <span class="pl-v">passwd</span><span class="pl-k">=</span>password, <span class="pl-v">database</span><span class="pl-k">=</span>db_name)</td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-tables_creation-py-LC6" class="blob-code blob-code-inner js-file-line">  cursor <span class="pl-k">=</span> my_db.cursor()</td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-tables_creation-py-LC7" class="blob-code blob-code-inner js-file-line">  </td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-tables_creation-py-LC8" class="blob-code blob-code-inner js-file-line">  <span class="pl-c"><span class="pl-c">#</span> Execute all SQL commands and commit it into the DB</span></td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-tables_creation-py-LC9" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">for</span> sql_q <span class="pl-k">in</span> all_sql_tables:</td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-tables_creation-py-LC10" class="blob-code blob-code-inner js-file-line">      cursor.execute(sql_q)</td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-tables_creation-py-LC11" class="blob-code blob-code-inner js-file-line">  my_db.commit()</td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-tables_creation-py-LC12" class="blob-code blob-code-inner js-file-line">  logger.info(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\n</span>*** Database was created successfully. ***<span class="pl-cce">\n</span><span class="pl-pds">"</span></span>)  <span class="pl-c"><span class="pl-c">#</span> log into a logs file</span></td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-tables_creation-py-LC13" class="blob-code blob-code-inner js-file-line">  </td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-tables_creation-py-LC14" class="blob-code blob-code-inner js-file-line">  <span class="pl-c"><span class="pl-c">#</span> If we get an error at some point, the my_db.rollback() reverts everything to the state we had in our last commit</span></td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-tables_creation-py-LC15" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">except</span> mysql.connector.Error <span class="pl-k">as</span> error:</td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-tables_creation-py-LC16" class="blob-code blob-code-inner js-file-line">      my_db.rollback()  <span class="pl-c"><span class="pl-c">#</span> rollback if any exception occured</span></td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-tables_creation-py-LC17" class="blob-code blob-code-inner js-file-line">      logger.critical(<span class="pl-s"><span class="pl-pds">"</span>Failed creating database <span class="pl-c1">{}</span>.<span class="pl-pds">"</span></span>.format(error)) <span class="pl-c"><span class="pl-c">#</span> log into a logs file</span></td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-tables_creation-py-LC18" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-tables_creation-py-LC19" class="blob-code blob-code-inner js-file-line">  <span class="pl-c"><span class="pl-c">#</span> Close database connection no matter what happened before</span></td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-tables_creation-py-LC20" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">finally</span>:</td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-tables_creation-py-LC21" class="blob-code blob-code-inner js-file-line">      <span class="pl-k">if</span> my_db <span class="pl-k">is</span> <span class="pl-k">not</span> <span class="pl-c1">None</span> <span class="pl-k">and</span> my_db.is_connected():</td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-tables_creation-py-LC22" class="blob-code blob-code-inner js-file-line">          cursor.close() ; my_db.close()</td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="file-tables_creation-py-LC23" class="blob-code blob-code-inner js-file-line">          logger.info(<span class="pl-s"><span class="pl-pds">"</span>MySQL connection is closed.<span class="pl-pds">"</span></span>)</td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L24" class="blob-num js-line-number" data-line-number="24"></td>
+        <td id="file-tables_creation-py-LC24" class="blob-code blob-code-inner js-file-line">      <span class="pl-k">else</span>:</td>
+      </tr>
+      <tr>
+        <td id="file-tables_creation-py-L25" class="blob-num js-line-number" data-line-number="25"></td>
+        <td id="file-tables_creation-py-LC25" class="blob-code blob-code-inner js-file-line">          logger.info(<span class="pl-s"><span class="pl-pds">"</span>connection to MySQL did not succeed.<span class="pl-pds">"</span></span>)</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/ShaikeA/913235de19bf8ec5fbea72d4ef850f10/raw/2c57ab856e868b87c93f26e0344c2d80976a3ebc/tables_creation.py" style="float:right">view raw</a>
+        <a href="https://gist.github.com/ShaikeA/913235de19bf8ec5fbea72d4ef850f10#file-tables_creation-py">tables_creation.py</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200;function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height); resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);}maybeResize();</script></body></html>

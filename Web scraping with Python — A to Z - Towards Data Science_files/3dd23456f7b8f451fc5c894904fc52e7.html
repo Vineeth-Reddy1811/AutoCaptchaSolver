@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://towardsdatascience.com/media/3dd23456f7b8f451fc5c894904fc52e7 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>rotation.py – Medium</title><meta name="description" content="GitHub Gist: instantly share code, notes, and snippets."><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style><style type="text/css">
+:root .mw > #rcnt > #center_col > #taw > .c,
+:root .mw > #rcnt > #center_col > #taw > #tvcap > .c,
+:root .ch[onclick="ga(this,event)"]
+{ display: none !important; }</style></head><body><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./d098e62b95b6fdac02a7f74c385964f1.js" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-a9a1cf2ca01efd362bfa52312712ae94.css"><div id="gist93692748" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-rotation-py" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-python ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tbody><tr>
+        <td id="file-rotation-py-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-rotation-py-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">from</span> itertools <span class="pl-k">import</span> cycle</td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-rotation-py-LC2" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> requests</td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-rotation-py-LC3" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-rotation-py-LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Generate the pools</span></td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-rotation-py-LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">create_pools</span>():</td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-rotation-py-LC6" class="blob-code blob-code-inner js-file-line">    proxies <span class="pl-k">=</span> proxies_pool()</td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-rotation-py-LC7" class="blob-code blob-code-inner js-file-line">    headers <span class="pl-k">=</span> [random_header() <span class="pl-k">for</span> ind <span class="pl-k">in</span> <span class="pl-c1">range</span>(<span class="pl-c1">len</span>(proxies))] <span class="pl-c"><span class="pl-c">#</span> list of headers, same length as the proxies list</span></td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-rotation-py-LC8" class="blob-code blob-code-inner js-file-line">    </td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-rotation-py-LC9" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> This transforms the list into itertools.cycle object (an iterator) that we can run </span></td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-rotation-py-LC10" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> through using the next() function in lines 16-17.</span></td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-rotation-py-LC11" class="blob-code blob-code-inner js-file-line">    proxies_pool <span class="pl-k">=</span> cycle(proxies)</td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-rotation-py-LC12" class="blob-code blob-code-inner js-file-line">    headers_pool <span class="pl-k">=</span> cycle(headers)</td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-rotation-py-LC13" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">return</span> proxies_pool, headers_pool</td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-rotation-py-LC14" class="blob-code blob-code-inner js-file-line">  </td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-rotation-py-LC15" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Usage example</span></td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-rotation-py-LC16" class="blob-code blob-code-inner js-file-line">proxies_pool, headers_pool <span class="pl-k">=</span> create_pools() </td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-rotation-py-LC17" class="blob-code blob-code-inner js-file-line">current_proxy <span class="pl-k">=</span> <span class="pl-c1">next</span>(proxy_pool)</td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-rotation-py-LC18" class="blob-code blob-code-inner js-file-line">current_headers <span class="pl-k">=</span> <span class="pl-c1">next</span>(headers_pool)</td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-rotation-py-LC19" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-rotation-py-LC20" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Introduce the proxy and headers in the GET request</span></td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-rotation-py-LC21" class="blob-code blob-code-inner js-file-line"><span class="pl-k">with</span> requests.Session() <span class="pl-k">as</span> req:</td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-rotation-py-LC22" class="blob-code blob-code-inner js-file-line">    page <span class="pl-k">=</span> req.get(link, <span class="pl-v">proxies</span><span class="pl-k">=</span>{<span class="pl-s"><span class="pl-pds">"</span>http<span class="pl-pds">"</span></span>: current_proxy, <span class="pl-s"><span class="pl-pds">"</span>https<span class="pl-pds">"</span></span>: current_proxy},</td>
+      </tr>
+      <tr>
+        <td id="file-rotation-py-L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="file-rotation-py-LC23" class="blob-code blob-code-inner js-file-line">                   <span class="pl-v">headers</span><span class="pl-k">=</span>current_headers, <span class="pl-v">timeout</span><span class="pl-k">=</span><span class="pl-c1">30</span>)</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/ShaikeA/d098e62b95b6fdac02a7f74c385964f1/raw/8afa7a1705a990d40c274f494b65a43da446f0ff/rotation.py" style="float:right">view raw</a>
+        <a href="https://gist.github.com/ShaikeA/d098e62b95b6fdac02a7f74c385964f1#file-rotation-py">rotation.py</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200;function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height); resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);}maybeResize();</script></body></html>

@@ -1,0 +1,38 @@
+<html>
+
+<head>
+	<script src="JQuery.js"></script>
+	<title>Auto Captcha</title>
+	<style>
+
+	</style>
+</head>
+
+<script>
+	
+</script>
+
+<body>
+	
+	<div id="mydiv"> </div>
+	<script type="text/javascript">
+		document.getElementById('mydiv').innerHTML = '<img src="images/'+i+'.png" />';
+		 
+	</script>
+	<input type=text></input>
+	<button id="capbutton">refresh</button>
+	<button>submit</button>
+</body>
+
+<script>
+	var i = Math.floor(Math.random() * 9956);
+$(mydiv).prepend("<img src='images/" +i+".png' />");
+$(capbutton).click(function(){
+i=Math.floor(Math.random()*9956);
+$(mydiv).html("<img src='images/" +i+".png' />");
+});
+</script>
+
+
+
+</html>

@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<!-- saved from url=(0068)https://codelabs.developers.google.com/codelabs/mobile-vision-ocr/#0 -->
+<html class="gr__codelabs_developers_google_com"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!-- Shady DOM styles for custom-style --><!-- Shady DOM styles for dom-template --><!-- Shady DOM styles for dom-repeat --><!-- Shady DOM styles for array-selector --><!-- Shady DOM styles for dom-if --><!-- Shady DOM styles for iron-localstorage --><!-- Shady DOM styles for iron-meta --><!-- Shady DOM styles for iron-meta-query --><!-- Shady DOM styles for paper-ripple --><style scope="paper-ripple">paper-ripple {
+  border-radius:inherit;bottom:0;display:block;left:0;overflow:hidden;pointer-events:none;position:absolute;right:0;top:0
+}
+
+paper-ripple[animating] {
+  -webkit-transform:translate(0);transform:translateZ(0)
+}
+
+#background.paper-ripple,#waves.paper-ripple,.wave.paper-ripple,.wave-container.paper-ripple {
+  height:100%;left:0;pointer-events:none;position:absolute;top:0;width:100%
+}
+
+#background.paper-ripple,.wave.paper-ripple {
+  opacity:0
+}
+
+#waves.paper-ripple,.wave.paper-ripple {
+  overflow:hidden
+}
+
+.wave.paper-ripple,.wave-container.paper-ripple,paper-ripple.circle #background.paper-ripple,paper-ripple.circle #waves.paper-ripple {
+  border-radius:50%
+}
+
+paper-ripple.circle .wave-container.paper-ripple {
+  overflow:hidden
+}</style><!-- Shady DOM styles for paper-radio-button --><style scope="paper-radio-button-1">.paper-radio-button-1 {
+  ;cursor:pointer;display:inline-block;line-height:0;white-space:nowrap;-webkit-font-smoothing:antialiased;font-family:Roboto,Noto,sans-serif
+}
+
+.paper-radio-button-1:focus {
+  outline:none
+}
+
+.paper-radio-button-1 #radioContainer.paper-radio-button {
+  display:-ms-inline-flexbox;display:-webkit-inline-flex;display:inline-flex;-ms-flex-align:center;-webkit-align-items:center;align-items:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center;height:16px;position:relative;vertical-align:middle;width:16px
+}
+
+.paper-radio-button-1 #ink.paper-radio-button {
+  -webkit-transform:translate(-50%,-50%);color:#212121;height:48px;left:50%;opacity:.6;pointer-events:none;position:absolute;right:auto;top:50%;transform:translate(-50%,-50%);width:48px
+}
+
+.paper-radio-button-1 #ink[checked].paper-radio-button {
+  color:#3f51b5
+}
+
+.paper-radio-button-1 #offRadio.paper-radio-button,.paper-radio-button-1 #onRadio.paper-radio-button {
+  border-radius:50%;box-sizing:border-box;height:100%;left:0;position:absolute;top:0;width:100%
+}
+
+.paper-radio-button-1 #offRadio.paper-radio-button {
+  background-color:transparent;border:2px solid #212121;transition:border-color .28s
+}
+
+.paper-radio-button-1 #onRadio.paper-radio-button {
+  -webkit-transform:scale(0);background-color:#3f51b5;transform:scale(0);transition:-webkit-transform .28s ease;transition:transform .28s ease;transition:transform .28s ease,-webkit-transform .28s ease;will-change:transform
+}
+
+.paper-radio-button-1[checked] #offRadio.paper-radio-button {
+  border-color:#3f51b5
+}
+
+.paper-radio-button-1[checked] #onRadio.paper-radio-button {
+  -webkit-transform:scale(.5);transform:scale(.5)
+}
+
+.paper-radio-button-1 #radioLabel.paper-radio-button {
+  color:#212121;display:inline-block;line-height:normal;margin-left:10px;position:relative;vertical-align:middle;white-space:normal
+}
+
+[dir=rtl] .paper-radio-button-1 #radioLabel.paper-radio-button, .paper-radio-button-1[dir=rtl] #radioLabel.paper-radio-button {
+  margin-left:0;margin-right:10px
+}
+
+.paper-radio-button-1 #radioLabel[hidden].paper-radio-button {
+  display:none
+}
+
+.paper-radio-button-1[disabled] #offRadio.paper-radio-button {
+  border-color:#212121;opacity:.5
+}
+
+.paper-radio-button-1[disabled][checked] #onRadio.paper-radio-button {
+  background-color:#212121;opacity:.5
+}
+
+.paper-radio-button-1[disabled] #radioLabel.paper-radio-button {
+  opacity:.65
+}</style><!-- Shady DOM styles for paper-radio-group --><style scope="paper-radio-group-0">.paper-radio-group-0 {
+  display:inline-block
+}
+
+.paper-radio-group-0 >* {
+  padding:12px
+}</style><!-- Shady DOM styles for google-codelab-survey --><style scope="google-codelab-survey-0">.google-codelab-survey-0 {
+  background:#e8f0fe;border-left:4px solid #185abc;border-radius:4px;color:#3c4043;display:block;margin:2em 0;padding:0
+}
+
+.google-codelab-survey-0 .survey.google-codelab-survey  h4 {
+  font-size:16px;font-weight:500;margin:0;padding:.8em .6em 0 20px
+}
+
+.google-codelab-survey-0 .survey.google-codelab-survey  paper-radio-group {
+  padding:.4em 0 1.1em 30px
+}
+
+.google-codelab-survey-0 .survey.google-codelab-survey  paper-radio-button {
+  display:block;padding:4px 0
+}</style><!-- Shady DOM styles for google-codelab-step --><style scope="google-codelab-step-0">.google-codelab-step-0 {
+  display:block;line-height:24px
+}
+
+.google-codelab-step-0 #title.google-codelab-step {
+  font-family:Google Sans,Arial,sans-serif;font-size:28px;font-weight:400;line-height:1em;margin:0 0 30px
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step {
+  background:#fff;border-radius:4px;box-shadow:0 1px 2px 0 rgba(60,64,67,.3),0 2px 6px 2px rgba(60,64,67,.15);font-size:14px;margin:0 auto 32px;max-width:800px
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step .inner.google-codelab-step {
+  padding:24px
+}
+
+google-codelab[theme=minimal] .google-codelab-step-0 .instructions.google-codelab-step .inner.google-codelab-step,.google-codelab-step-0  google-codelab-stepgoogle-codelab[theme=minimal] .instructions.google-codelab-step .inner.google-codelab-step {
+  padding:0 24px
+}
+
+@media (max-width:800px) {
+.google-codelab-step-0 .instructions.google-codelab-step {
+  margin:0 0 16px
+}
+
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  a,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  a,google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  a:visited,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  a:visited {
+  color:#1a73e8
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  h2,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  h2,google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  h3,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  h3,google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  h4,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  h4 {
+  font-weight:400;margin:0
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  h2,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  h2 {
+  font-size:22px;font-weight:300;line-height:1em
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step ,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  {
+  line-height:24px
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  li,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  li {
+  margin:.5em 0
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  h2,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  h2 {
+  font-size:20px;font-weight:500;margin:1.5em 0 0
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  h3,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  h3 {
+  font-weight:500;margin:20px 0 0
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  aside,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  aside {
+  border-left:4px solid;border-radius:4px;margin:2em 0;padding:.5em 1em
+}
+
+:host-context(google-codelab:not([theme=minimal])) google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  aside p,.google-codelab-step-0  :host-context(google-codelab:not([theme=minimal])) google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  aside p {
+  margin:.5em 0
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  aside.note,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  aside.note,google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  aside.notice,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  aside.notice {
+  background:#fef7e0;border-color:#ea8600;color:#212124;
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  aside.special,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  aside.special,google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  aside.tip,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  aside.tip {
+  background:#e6f4ea;border-color:#137333;color:#212124;
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  aside.warning,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  aside.warning {
+  background:#fef7e0;border-color:#ea8600;color:#212124;
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  aside.callout {
+  background-color:#e8f0fe;border-left:3px solid #185abc;border-radius:4px;color:#212124;font-size:14px;line-height:1.5;margin:20px 0;padding:15px;
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  aside.callout b {
+  color:#185abc
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  ul.checklist {
+  list-style:none;padding:0 0 0 1em
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  ul.checklist li {
+  background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAWlBMVEUAAAAxokwwoks1pFAxokwxokwxokwxokwxokwnnkQnnkQnnkRou3y84cTS69cxokwonkQxokwnnkRqvH1VsmtluXlVsmsnnkRdtnLw+PIxokwqn0YinEAfmj3goh/UAAAAGnRSTlMA2CcEo+6AQT7+2IOBJxPl27alhoBnX15SCCe258UAAAB+SURBVEjH7dA5EoAgEERR3BcQ923Q+1/T0SqKlNbMouP3gxkRFvZpyQb64VSQT4mOcYc8mU5DnqIG8zXoozj4d34tML+YrET8XBFx4e2F4oAL4N7J3EUB/EfSUwD/zG3hvFdROu9XtL31vgXguQA9F6DnAvM8WbOHpkXYD3cBBCcPjtASYjwAAAAASUVORK5CYII=');background-repeat:no-repeat;background-size:20px;padding-left:24px
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  h2 code,.google-codelab-step-0 .instructions.google-codelab-step  table code {
+  background:#fff
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  .indented {
+  margin-left:40px
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  strong {
+  font-weight:600
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  paper-button {
+  border-radius:4px;color:#fff;font-family:Google Sans,Arial,sans-serif;font-size:14px;font-weight:600;letter-spacing:.6px;padding:6px 16px 6px 12px;text-transform:none
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  paper-button a {
+  color:inherit!important;text-decoration:none
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  a paper-button {
+  display:inline-block
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  paper-button.colored {
+  background-color:#1e8e3e
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  paper-button.red {
+  background-color:#d93025
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  iron-icon {
+  max-height:16px;max-width:16px;padding-right:8px
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  img {
+  max-width:100%;vertical-align:bottom;width:100%
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  table {
+  border-spacing:0
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  td {
+  border-bottom:1px solid #ccc;padding:8px;vertical-align:top
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  table p {
+  margin:0
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  h3.faq,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  h3.faq {
+  border-bottom:1px solid #ddd
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  ul.faq,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  ul.faq {
+  list-style:none;padding-left:1em
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  .faq li,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  .faq li {
+  font-size:1.1em;margin-bottom:.8em
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  .faq a,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  .faq a {
+  color:inherit;text-decoration:none
+}
+
+google-codelab:not([theme=minimal]) .google-codelab-step-0 .instructions.google-codelab-step  .faq a:hover,.google-codelab-step-0  google-codelab-stepgoogle-codelab:not([theme=minimal]) .instructions.google-codelab-step  .faq a:hover {
+  text-decoration:underline
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  .faq a[href*="cloud.google.com"] {
+  background-image:url('data:image/png;base64,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');background-repeat:no-repeat;background-size:20px;padding-left:22px
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  .faq a[href*="stackoverflow.com"] {
+  background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATwAAAE8CAMAAABq2/00AAAA4VBMVEUAAACCg4aCg4aCg4bIj0P1fx/2hh+ojHCojHCojHD2ih/UjCn0eiD0eiD2hB/2hR/RjjDUjCnKkkPUjCnUjCn2ih/UjCnCllPCllP2ih/CllPCllPCllP2ih/CllPCllPCllP2ih/2ih/CllPCllP2ih/2ih/CllPUjCnCllPUjCn0eiD0eiD2ih+ojHD0eiDUjCn0eiD0eiCojHDUjCn0eiDUjCn0eiDUjCnUjCn0eiCojHD0eiCojHD2ih+ojHD2ih+ojHCojHCdiXaViHuCg4aojHD0eiDCllPUjCn2ih8XYwy7AAAARXRSTlMAv0CAEEAQv4BA7++/gCBQQN8wIIDPv2Dfv5+PUDDPryCAcO+/r49wn4Bg79/frJ9QcGDPr6+Pj3DPz2AwIJ9wYOaPVDAbIL/gAAAGhElEQVR42uzbsYrCQBDG8WmyxaJJlcIixQmxMSIRgiBB7Bbm/R/oPAnH3e0SxwSvyf/3DLt8zDeMAAAAAAAAAAAAAAAAAAAAAAAAAAAA4F9k7Xm1Xwlek53WqyY87AVWfbHumvCTE5hkIZYJTFyIrQU2+xA5CmxWIULcWq1DTGBzCrFcMDluC4ENcTtDEyKdwKYLkYuAuH27ggFtuj7ETgLiNo0B7Z3c1YnNMUQaWbTC6/W1uKUPHbha7wr60GnP7ot3YpGHWCsL5Wod1JP70LMsU+H12424nfDsBj4XgzMD2kN20F82YtDSh965nf61JW7Nzy7iKwY067OLlfJcw/qx1KQPQ9zSh1aaVtGHGnxoUummrB97WZhSk3byRM/6UST3mpQRtwZbTTo4GXdhQLvbaNJVxnX0oSMftyBuDQpN8o4BzaDWpFrG5KwfH5zXpJuMCfShox83pw812GnSxrx+XPI5hjvowF7ttawfB5km+Yq4nf5xS84x5lR7nGPMqfaI2znVHgPajGqPc4w51R7nGJ/sm29P2zAQh49h1kJgJHGWlrbQItAIebNO67owadpgwOzv/4Wm8S8NLsXxGSTu/HyEk/O78+McRu0FH4pQe2EdA6P2wjoGRu2FdotQe2EdA6P2wjoGRu2FdotQe+GChlF7DNcxKulN7bFbx4h1lPlSe+x8aKK1Tqae1B6zdYxM35BLP2qP1TqGjPQdmfCi9ji125l+ICp9qD1G6xixXiSPPag9PusYiW5SCLza49JuK/2YKEOrPSYXNBFpkyTGqj0e6xiFXkoukWqPwzpGrJ8iEyi1x8GHnuknSUqU2qO/jlHpVeQpwhB8oL6OISK9mkK4qz3q7bbQzxFV7mqP9jpGqi1IYme1R3sdI060BTPpaAiot9ss0hZkwk3tUb+gyUJbkEzd1B55HxqfaQvy1Ent0V/HKCNtwVy0NwSfGPhQMdcWRJWD2uOwjiFzbcFZ3F7tsVjHmDqMLTZqj3S7bTm2RJloZwh2maxjyJnd2NJS7XFZx7AcW2QrtUe93dZUDmOLjdrbaTTa7e9fNgj1i7ZjS9lK7dU+dPvzzgaRZ8elpPZji73a2/j749vOLuWytRtbCmmv9jghLMcWuw936zfwwnZssTAEexw+VidTmstn1N4Wr2/2gcrBlO6HY3eHKNqPLYfh2FmPLeZ/aXvh2D1Q2o0tYkHt8ZxQliIybTm2NNXex30IWI8tcePDPYSAywPv+61w7NwfeHfJHrvJS44tSQmUGan+oCfAgTi3fOCly1D952A4eqkH3gTocqDuOT5NX2JsmQJZhFrkaHwy8fzAmwNdeuoRRgQiTakEugyUSR2B+LFlDoTpK4M6AvH/pUUC6JIqAyMCMQ+8pMe8E2XgGIFlxKxbAIyVgUUEWj/wUh6QAZQBIgJlzqlbQKwMUBE4Tdh0C4ChMsBFoMgiJt2ivpvVoCNQznh0CxDKAB2B9dgSA2l6ygAbgfUDbwG0GSgDPxEo5tS7xYq7GT4CU8Im6pbRsNkxMBFIex5ezqQ3qM8fPgL5kZ6Mj1QNLgKpR90y4tNjpbxFID+ExwjsAUN8ReAYmOIjAlmePF8RyLHv+orAPgScI3AIb531tQZ/XjECR3DL5VoTeDOsXTVYf8UIFHDLu6sm8GZAFA8ZgccQimcgLCPwNBRvOROLCExD8Z4mXR2BRxCK5+wCx6F47hHYC8Vzj8BJKJ5zBPYhFM85Agf0i3dx3ulcdLubm5e+I3BEv3id65r7Ov70EoGCV/EW+NrpdLu/cHWkX7zz65pn6hiK9689O8hJKIaiMCxK0nYzTBgSYxDs/pekiTohEq/v0eRKv28J/+zkXMbrF2IdxQvEC3ScOF7r6+3LrtZDa1vxVinfHaeId+qjTBCv9kGO4i1XJoi365/EWxCv9EF24i1XJ4jXv4iXKd7p/uNt+yjt/uO1PspZvOVmmGcPrZ1q3ZUi3qoDaNva4WYdj5PFu2nHMm+8nzqKF4y3vuOreL923PcrqngRz6291FrKXrxbdWzifXB6iydehHh5iDco3maQpxnivQ2yEU888cQLEi8R8cSLES8R8cSLES8R8cSLES8R8cSLES8R8QbFexzkPEO86xxA4on3F+LlIZ54QeLlIZ54QeLlIZ54QeLlId6qeOk8/BviiRciXibiiRciXibiiRciXibiiRciXibiiQcAAAAAAAAAAAAAAAAAwHTeAe21evvWi2VXAAAAAElFTkSuQmCC');background-repeat:no-repeat;background-size:24px;padding-left:22px
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  .faq a[href*="support.google.com/webmasters/"] {
+  background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAolBMVEUAAADW1tbW1tZ6enrQ0dJ6enrMzMzq6+zq6+x6enru7+/m5+ju7+/m5+j////S09REi/XW1tbm5+ju7+9PT0/Q0dK8vLxGjfVZWVlNTU16enrMzMzIyMj09PS/0uuSkpJpaWmbm5tim/e0tLSEhIStx+3e3+GsrKxwcHBZk/dPk/R1p/KPtu/U3eqmpqZlZWVfmO5woeqHreWvwN6nu9qLi4vZSE73AAAADnRSTlMAEcxmzO7MzDMz7u6IiHn/rpYAAALMSURBVHja7dXpjtowFIZhUkqZlSV1ncQdEsK+zD7T+7+1xjTiwxVOAmeORyP5+2UspPchEtDy8/Pz8/Pz8/M7cZeduHKdyxbL0FfVAMUraHdUHUB12i22tZWqBRSDgKFfC4CApV8PgIClXw/gE6hyTd/lAR7gAV8fEHwbWtc/ul/WfQ8IfQKAIECfCoCA3sdq+nQB+nQABIQ+CQABtY9Z+lQB+gwACBj6AFAE6DM9AL0fAalPB/yGgNAfntwHAAJKnwCAwNLneQAAVAvM/ttzVLlB4z2/A6AFVoDRf43IfewVgGKNAG/Uvrl39BsCXqh9cy8nA/51tmk63+jDZp6m9wTA4DzANiyW6lOqTxAMHAD22XASReuwpKDvELCNookBGJwx9E8B3OvsQp8e9GmOviNANA/Dh4k+TApBukHfFSBa7/I7whqf3xWA/gOAoU8DDJwBCHk+wIAw9CsAPw/W++CFB/MAD/hCgL59PXPS8toRYKHEndkTauEQIIUQ0hToG2eAXOicKdBXmSPAo9CTpkDo5U4Ad6IEGILy0gFgFJctCACIh/yATABwIChvVyE3IBR7AAQAiOmIGZADAMEBQMkRL+AJAAgOALGUI07AQgBgCPb3uRbwAaYAGAIAZlIL2AA5AIYAgJXUAjaAAsAQADCWO4EjAAQGQAvYAUsDsDQAeuwAMZvu89PZ/jZhBmQCi2dl60+MPiMAf8UgZEUpK/LoJ4oX0C9LIIyF0U8yXkBPVCzRWzIDZjX9sWQG9Kv7ScYN6KnKfizZAf2qfpLzA3p5RV9JboDeytp/kk4Ao5WtP+UFQKCO9sdTSQQ03+OR/kxKdgAWZv/11VI6AWBmP5HSNQD5zwQknwxIqIBu468hBgDqNYCuFXBDASSNAbdWQHB1PiBpDLgOWtZdXPEDri/QswjYAOjbF9x0OQHd26Dl5+fn5+fn5+dn7i/3LEaKJNV/0wAAAABJRU5ErkJggg==');background-repeat:no-repeat;background-size:24px;padding-left:24px
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  .faq a[href*="developer.android.com"],.google-codelab-step-0 .instructions.google-codelab-step  .faq a[href*=android-developer] {
+  background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAMAAADVRocKAAAAq1BMVEX///+lyjmfxyGhyCqkyjakyTP+/vuiyS7z+OWlyjKgxyTX57ChyCfa6bTx9uLy9+Sz0l6szk/D24Tt9NrN4ZnK4JSiyCyexh34+/D6/PTp8dPh7cjf7L7k78vc6rnW5qzU5ajS5KPP4p+21GWnzD3F3Yi813Kx0ViqzUWexhr8/vjv9d7Z6LKy0lyZxADh7cLA2n2rzkr1+erJ35C61m6uz1KcxRHn8M6/2XgEePWtAAACr0lEQVRo3u3Z2XKiQBiG4Y9ebNO2aCCyzOC+7zH7/V/ZRJZQZaJpWnKS4TlJUItXbX4pFJXK71DTusvccI6z5oMSAutdhDP2uzpK4CxwxsRBGYJdA19qLAOU4s4LkyUN7G4Ude2glmzuRihHKDqAPZhNuJRKSckms37rvctrKMnG728l5cxKMU7JuCF7KEvf87h1gnu0iXK4B2p9Sc3dUgZNMusMLvu42r20LiBXT8JMWRepN1xlGu+fK8/6xFPxwsvH697/eP/j7uDTOvB+dxwX/AaM2SQ+6icrYHDyGmgfWE3irNeCqTaPAwcArydroboAbuMAb8NQRNJn20SYtHK8HaKZzoffhZl5tlNxsD5PsnUQ2b9jwwnO35WvRo3lN/o2TDwKS5M3gokF0w2wZxgIlpY2FpgsgdQPkLXJQar0A/LVIDB6Idp2GxQQrJI/rbq2Voijlc5S9LZs8uYCqBVyXLTZhLW/fSn3hDMmZAQ05I020gT2PmeM+w4uGpLksFs+oEEtbaqJVnpUkz4uyebf6xQK0CY6XjoSC1xQ9/PPr4KB52zuvTrOa5EssC0auM0C0tYKtI0DqgpUgSpQBapAFfifAj90Tn5YZoGnooH8eutB56KDDosGhlTrYiTyk0epVdFAKJLn9rLHRSNfcE4tF0UDcAXlXPhDfGPtjGejEMUDCEdPY8eFHoOADvPAxiDQLBBQkUHAJfoB34UBS/9CfAETe6lZYKZft/QIFe94vicRy7tcvKOkB0PhYOo4zlNWYNvjpjOdZwU+O24OQlynK62EGCF2J9IbpIsy/P0I3CHW+Qj8qQJVoAr8VOCx3EB+YvDSwIDmXzaW4oZZseU6Lfr5aaAUPT8uyPuT33VeIpRkI5RHyRQfHEKFUj2UJuh1GjaQsxudKECl8jv8A6GtQkKSkMLrAAAAAElFTkSuQmCC');background-repeat:no-repeat;background-size:20px;padding-left:20px
+}
+
+.google-codelab-step-0 .instructions.google-codelab-step  h3>a[href*=github],.google-codelab-step-0 .instructions.google-codelab-step  h3>a[href*=github]:visited {
+  background-image:url('data:image/png;base64,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');background-repeat:no-repeat;background-size:18px;color:#000;padding-left:24px;text-decoration:none
+}
+
+.google-codelab-step-0  code,.google-codelab-step-0  pre {
+  border-radius:4px;font-family:Source Code Pro,Helvetica,Arial;font-size:inherit;overflow-x:auto;
+}
+
+.google-codelab-step-0  code {
+  background-color:#e8eaed;padding:.1em .3em
+}
+
+.google-codelab-step-0  pre {
+  -webkit-text-size-adjust:none;background-color:#28323f;color:#fff;display:block;line-height:1.4;padding:14px
+}
+
+.google-codelab-step-0  pre>code {
+  background-color:transparent;padding:0
+}
+
+.google-codelab-step-0  code em {
+  color:#97c8f2
+}
+
+.google-codelab-step-0  code .str,.google-codelab-step-0  pre .str {
+  color:#34a853
+}
+
+.google-codelab-step-0  code .kwd,.google-codelab-step-0  pre .kwd {
+  color:#f538a0
+}
+
+.google-codelab-step-0  code .com,.google-codelab-step-0  pre .com {
+  color:#bdc1c6;font-style:italic
+}
+
+.google-codelab-step-0  code .typ,.google-codelab-step-0  pre .typ {
+  color:#24c1e0
+}
+
+.google-codelab-step-0  code .lit,.google-codelab-step-0  pre .lit {
+  color:#4285f4
+}
+
+.google-codelab-step-0  code .pln,.google-codelab-step-0  code .pun,.google-codelab-step-0  pre .pln,.google-codelab-step-0  pre .pun {
+  color:#f8f9fa
+}
+
+.google-codelab-step-0  code .tag,.google-codelab-step-0  pre .tag {
+  color:#24c1e0
+}
+
+.google-codelab-step-0  code .atn,.google-codelab-step-0  pre .atn {
+  color:#eda912
+}
+
+.google-codelab-step-0  code .atv,.google-codelab-step-0  pre .atv {
+  color:#34a853
+}
+
+.google-codelab-step-0  code .dec,.google-codelab-step-0  pre .dec {
+  color:#5195ea
+}</style><!-- Shady DOM styles for iron-icon --><style scope="iron-icon-1">.iron-icon-1 {
+  display:-ms-inline-flexbox;display:-webkit-inline-flex;display:inline-flex;-ms-flex-align:center;-webkit-align-items:center;align-items:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center;fill:currentcolor;height:100%;position:relative;stroke:none;vertical-align:middle;width:100%;
+}</style><style scope="iron-icon-0">.iron-icon-0 {
+  display:-ms-inline-flexbox;display:-webkit-inline-flex;display:inline-flex;-ms-flex-align:center;-webkit-align-items:center;align-items:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center;fill:currentcolor;height:24px;position:relative;stroke:none;vertical-align:middle;width:24px;
+}</style><!-- Shady DOM styles for iron-iconset-svg --><!-- Shady DOM styles for neon-animated-pages --><style scope="neon-animated-pages">neon-animated-pages {
+  display:block;position:relative
+}
+
+neon-animated-pages >* {
+  bottom:0;left:0;position:absolute;right:0;top:0
+}
+
+neon-animated-pages >:not(.iron-selected):not(.neon-animating) {
+  display:none!important
+}
+
+neon-animated-pages >.neon-animating {
+  pointer-events:none
+}</style><!-- Shady DOM styles for slide-from-right-animation --><!-- Shady DOM styles for slide-from-left-animation --><!-- Shady DOM styles for slide-right-animation --><!-- Shady DOM styles for slide-left-animation --><!-- Shady DOM styles for app-header-layout --><style scope="app-header-layout-0">.app-header-layout-0 {
+  display:block;position:relative;z-index:0
+}
+
+.app-header-layout-0 >app-header {
+  left:0;position:fixed;right:0;top:0;z-index:1
+}
+
+.app-header-layout-0[has-scrolling-region] {
+  height:100%
+}
+
+.app-header-layout-0[has-scrolling-region] >app-header {
+  position:absolute
+}
+
+.app-header-layout-0[has-scrolling-region]>#contentContainer.app-header-layout {
+  bottom:0;left:0;position:absolute;right:0;top:0;-webkit-overflow-scrolling:touch;overflow-y:auto
+}
+
+.app-header-layout-0[fullbleed] {
+  display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-direction:column;-webkit-flex-direction:column;flex-direction:column;bottom:0;left:0;position:absolute;right:0;top:0
+}
+
+.app-header-layout-0[fullbleed]>#contentContainer.app-header-layout {
+  display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-direction:column;-webkit-flex-direction:column;flex-direction:column;-ms-flex:1 1 0.000000001px;-ms-flex-preferred-size:0.000000001px;-webkit-flex:1;-webkit-flex-basis:0.000000001px;flex:1;flex-basis:0.000000001px
+}
+
+.app-header-layout-0 #contentContainer.app-header-layout {
+  position:relative;z-index:0
+}</style><!-- Shady DOM styles for app-drawer --><style scope="app-drawer-0">.app-drawer-0 {
+  bottom:-120px;left:0;position:fixed;right:0;top:-120px;transition-property:visibility;visibility:hidden
+}
+
+.app-drawer-0[opened] {
+  visibility:visible
+}
+
+.app-drawer-0[persistent] {
+  width:256px
+}
+
+.app-drawer-0[persistent][position=left] {
+  right:auto
+}
+
+.app-drawer-0[persistent][position=right] {
+  left:auto
+}
+
+.app-drawer-0 #contentContainer.app-drawer {
+  -webkit-transform:translate3d(-100%,0,0);background-color:#fff;bottom:0;left:0;padding:120px 0;position:absolute;top:0;transform:translate3d(-100%,0,0);transition-property:-webkit-transform;transition-property:transform;transition-property:transform,-webkit-transform;width:256px;background:#fff
+}
+
+.app-drawer-0[position=right]>#contentContainer.app-drawer {
+  -webkit-transform:translate3d(100%,0,0);left:auto;right:0;transform:translate3d(100%,0,0)
+}
+
+.app-drawer-0[swipe-open]>#contentContainer.app-drawer:after {
+  bottom:0;content:"";left:100%;position:fixed;top:0;visibility:visible;width:20px
+}
+
+.app-drawer-0[swipe-open][position=right]>#contentContainer.app-drawer:after {
+  left:auto;right:100%
+}
+
+.app-drawer-0 #scrim.app-drawer,.app-drawer-0[opened]>#contentContainer.app-drawer {
+  -webkit-transform:translateZ(0);transform:translateZ(0)
+}
+
+.app-drawer-0 #scrim.app-drawer {
+  background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition-property:opacity
+}
+
+.app-drawer-0[opened]>#scrim.app-drawer {
+  opacity:1
+}
+
+.app-drawer-0[opened][persistent]>#scrim.app-drawer {
+  opacity:0;visibility:hidden
+}</style><!-- Shady DOM styles for iron-media-query --><!-- Shady DOM styles for app-drawer-layout --><style scope="app-drawer-layout-0">.app-drawer-layout-0 {
+  display:block
+}
+
+.app-drawer-layout-0[fullbleed] {
+  bottom:0;left:0;position:absolute;right:0;top:0
+}
+
+.app-drawer-layout-0 #contentContainer.app-drawer-layout {
+  height:100%;position:relative;transition:none
+}
+
+.app-drawer-layout-0 #contentContainer.app-drawer-layout:not(.narrow)  [drawer-toggle] {
+  display:none
+}</style><!-- Shady DOM styles for paper-button --><style scope="paper-button-0">.paper-button-0 {
+  display:block;position:relative
+}
+
+.paper-button-0[elevation="1"] {
+  box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12),0 3px 1px -2px rgba(0,0,0,.2)
+}
+
+.paper-button-0[elevation="2"] {
+  box-shadow:0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.4)
+}
+
+.paper-button-0[elevation="3"] {
+  box-shadow:0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12),0 3px 5px -1px rgba(0,0,0,.4)
+}
+
+.paper-button-0[elevation="4"] {
+  box-shadow:0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12),0 5px 5px -3px rgba(0,0,0,.4)
+}
+
+.paper-button-0[elevation="5"] {
+  box-shadow:0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12),0 8px 10px -5px rgba(0,0,0,.4)
+}
+
+.paper-button-0 {
+  display:-ms-inline-flexbox;display:-webkit-inline-flex;display:inline-flex;-ms-flex-align:center;-webkit-align-items:center;align-items:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center;-moz-user-select:none;-ms-user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-tap-highlight-color:transparent;-webkit-user-select:none;background:transparent;border-radius:3px;box-sizing:border-box;cursor:pointer;font:inherit;margin:0 .29em;min-width:5.14em;outline-width:0;padding:.7em .57em;position:relative;text-transform:uppercase;user-select:none;z-index:0;-webkit-font-smoothing:antialiased;font-family:Roboto,Noto,sans-serif;
+}
+
+.paper-button-0[hidden] {
+  display:none!important
+}
+
+.paper-button-0[raised].keyboard-focus {
+  font-weight:700;
+}
+
+.paper-button-0:not([raised]).keyboard-focus {
+  font-weight:700;
+}
+
+.paper-button-0[disabled] {
+  background:#eaeaea;color:#a8a8a8;cursor:auto;pointer-events:none;
+}
+
+.paper-button-0[animated] {
+  transition:box-shadow .28s cubic-bezier(.4,0,.2,1)
+}
+
+.paper-button-0 paper-ripple.paper-button {
+  color:
+}</style><!-- Shady DOM styles for iron-overlay-backdrop --><!-- Shady DOM styles for paper-dialog --><style scope="paper-dialog-0">.paper-dialog-0 {
+  background:#fff;color:#212121;display:block;margin:24px 40px;-webkit-font-smoothing:antialiased;font-family:Roboto,Noto,sans-serif;font-size:14px;font-weight:400;line-height:20px;box-shadow:0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12),0 8px 10px -5px rgba(0,0,0,.4);
+}
+
+.paper-dialog-0 >* {
+  margin-top:20px;padding:0 24px
+}
+
+.paper-dialog-0 >.no-padding {
+  padding:0
+}
+
+.paper-dialog-0 >:first-child {
+  margin-top:24px
+}
+
+.paper-dialog-0 >:last-child {
+  margin-bottom:24px
+}
+
+.paper-dialog-0  h2 {
+  margin:0;position:relative;-webkit-font-smoothing:antialiased;font-family:Roboto,Noto,sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:20px;font-weight:500;line-height:28px;
+}
+
+.paper-dialog-0  .buttons {
+  color:#3f51b5;margin:0;padding:8px 8px 8px 24px;position:relative;display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-direction:row;-webkit-flex-direction:row;flex-direction:row;-ms-flex-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end
+}</style><!-- Shady DOM styles for paper-fab --><!-- Shady DOM styles for paper-icon-button --><style scope="paper-icon-button-0">.paper-icon-button-0 {
+  -moz-user-select:none;-ms-user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-tap-highlight-color:transparent;-webkit-user-select:none;box-sizing:border-box!important;cursor:pointer;display:inline-block;height:40px;line-height:1;outline:none;padding:8px;position:relative;user-select:none;width:40px;z-index:0;
+}
+
+.paper-icon-button-0 #ink.paper-icon-button {
+  color:#212121;opacity:.6
+}
+
+.paper-icon-button-0[disabled] {
+  color:#9b9b9b;cursor:auto;pointer-events:none;
+}</style><!-- Shady DOM styles for paper-menu --><style scope="paper-menu-0">.paper-menu-0 .selectable-content.paper-menu >.iron-selected {
+  font-weight:700;
+}
+
+.paper-menu-0 .selectable-content.paper-menu >[disabled] {
+  color:#9b9b9b
+}
+
+.paper-menu-0 .selectable-content.paper-menu >:focus {
+  outline:0;position:relative;
+}
+
+.paper-menu-0 .selectable-content.paper-menu >:focus:after {
+  bottom:0;left:0;position:absolute;right:0;top:0;background:currentColor;content:"";opacity:0.12;pointer-events:none;
+}
+
+.paper-menu-0 .selectable-content.paper-menu >[colored]:focus:after {
+  opacity:.26
+}
+
+.paper-menu-0 {
+  background:#fff;color:#212121;display:block;padding:8px 0;background:inherit;cursor:pointer;padding:0
+}</style><!-- Shady DOM styles for paper-item --><style scope="paper-item-0">.paper-item-0 .paper-item.paper-item,.paper-item-0 {
+  display:block;min-height:48px;padding:0 16px;position:relative
+}
+
+.paper-item-0 .paper-item.paper-item {
+  -webkit-font-smoothing:antialiased;font-family:Roboto,Noto,sans-serif;font-size:16px;font-weight:400;line-height:24px;background:#fff;border:none;outline:none;text-align:left;width:100%
+}
+
+.paper-item-0 .paper-item[hidden].paper-item,.paper-item-0[hidden] {
+  display:none!important
+}
+
+.paper-item-0 .paper-item.iron-selected.paper-item,.paper-item-0.iron-selected {
+  font-weight:bold;
+}
+
+.paper-item-0 .paper-item[disabled].paper-item,.paper-item-0[disabled] {
+  color:#9b9b9b;
+}
+
+.paper-item-0 .paper-item.paper-item:focus,.paper-item-0:focus {
+  outline:0;position:relative;
+}
+
+.paper-item-0 .paper-item.paper-item:focus:before,.paper-item-0:focus:before {
+  bottom:0;left:0;position:absolute;right:0;top:0;background:currentColor;content:"";opacity:0.12;pointer-events:none;
+}
+
+.paper-item-0 {
+  display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-direction:row;-webkit-flex-direction:row;flex-direction:row;-ms-flex-align:center;-webkit-align-items:center;align-items:center;-webkit-font-smoothing:antialiased;font-family:Roboto,Noto,sans-serif;font-size:16px;font-weight:400;line-height:24px;
+}</style><!-- Shady DOM styles for google-codelab --><style scope="google-codelab-0">.google-codelab-0 .layout.google-codelab {
+  display:-ms-flexbox;display:-webkit-flex;display:flex
+}
+
+.google-codelab-0 .layout.horizontal.google-codelab {
+  display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-direction:row;-webkit-flex-direction:row;flex-direction:row
+}
+
+.google-codelab-0 .layout.vertical.google-codelab {
+  display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-direction:column;-webkit-flex-direction:column;flex-direction:column
+}
+
+.google-codelab-0 .layout.center.google-codelab {
+  -ms-flex-align:center;-webkit-align-items:center;align-items:center
+}
+
+.google-codelab-0 .layout.center-center.google-codelab {
+  -ms-flex-align:center;-webkit-align-items:center;align-items:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center
+}
+
+.google-codelab-0 .flex.google-codelab {
+  -ms-flex:1 1 0.000000001px;-ms-flex-preferred-size:0.000000001px;-webkit-flex:1;-webkit-flex-basis:0.000000001px;flex:1;flex-basis:0.000000001px
+}
+
+.google-codelab-0 .two.google-codelab {
+  -ms-flex:2;-webkit-flex:2;flex:2
+}
+
+.google-codelab-0 .end-justified.google-codelab {
+  -ms-flex-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end
+}
+
+.google-codelab-0 .end.google-codelab {
+  -ms-flex-align:end;-webkit-align-items:flex-end;align-items:flex-end
+}
+
+.google-codelab-0 .justified.google-codelab {
+  -ms-flex-pack:justify;-webkit-justify-content:space-between;justify-content:space-between
+}
+
+.google-codelab-0 .self-center.google-codelab {
+  -ms-align-self:center;-ms-flex-item-align:center;-webkit-align-self:center;align-self:center
+}
+
+.google-codelab-0 .wrap.google-codelab {
+  -ms-flex-wrap:wrap;-webkit-flex-wrap:wrap;flex-wrap:wrap
+}
+
+.google-codelab-0 {
+  ;display:block;line-height:24px;
+}
+
+.google-codelab-0[theme=minimal] {
+  position:relative
+}
+
+.google-codelab-0 #headerpanel.google-codelab {
+  left:0;margin-left:256px;position:fixed;right:0;z-index:1
+}
+
+.google-codelab-0 #headerpanel[narrow].google-codelab {
+  margin-left:0
+}
+
+.google-codelab-0 app-drawer-layout.google-codelab {
+  overflow-x:hidden
+}
+
+.google-codelab-0 .drawer-content-wrapper.google-codelab {
+  border-right:1px solid #dadce0;padding:16px
+}
+
+.google-codelab-0 #main-content.google-codelab {
+  background:#64b5f6
+}
+
+.google-codelab-0 #pages.google-codelab {
+  top:64px
+}
+
+.google-codelab-0 #controls[narrow].google-codelab {
+  width:100%
+}
+
+.google-codelab-0 #main-toolbar.google-codelab {
+  -ms-flex-align:center;-ms-flex-pack:justify;-webkit-align-items:center;-webkit-justify-content:space-between;align-items:center;background:#fff;box-shadow:0 1px 2px 0 rgba(60,64,67,.3),0 2px 6px 2px rgba(60,64,67,.15);color:#3c4043;display:-webkit-flex;display:-ms-flexbox;display:flex;height:64px;justify-content:space-between;padding:0 16px
+}
+
+.google-codelab-0 #main-toolbar.google-codelab .title.google-codelab {
+  -ms-flex:1;-webkit-flex:1;flex:1;font-family:Google Sans,Arial,sans-serif;font-weight:400;margin:0 8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}
+
+.google-codelab-0 paper-icon-button[icon=menu].google-codelab {
+  margin-right:0!important
+}
+
+.google-codelab-0 paper-fab.google-codelab {
+  ;-ms-flex-negative:0;-webkit-flex-shrink:0;flex-shrink:0
+}
+
+.google-codelab-0[theme=minimal] #resumeDialog.google-codelab>*.google-codelab {
+  margin-top:20px;padding:0 24px
+}
+
+.google-codelab-0[theme=minimal] #resumeDialog.google-codelab .buttons.google-codelab {
+  margin:0;padding:8px 8px 8px 24px
+}
+
+.google-codelab-0 .countdown.google-codelab iron-icon.google-codelab {
+  margin-right:3px
+}
+
+.google-codelab-0:not([theme=minimal]) #drawer.google-codelab .countdown.google-codelab {
+  display:none
+}
+
+.google-codelab-0[theme=minimal] #drawer.google-codelab .countdown.google-codelab {
+  -ms-flex-negative:0;-webkit-flex-shrink:0;color:#2196f3;flex-shrink:0;font-style:italic;padding:0 16px 16px
+}
+
+.google-codelab-0 #controls.google-codelab {
+  bottom:16px;box-sizing:border-box;padding:0 16px;pointer-events:none;position:fixed;right:0;width:calc(100% - 256px)
+}
+
+.google-codelab-0 #controls.google-codelab .fabs.google-codelab {
+  margin:0 auto;max-width:1050px
+}
+
+.google-codelab-0 .navbutton.google-codelab {
+  border-radius:4px;font-family:Google Sans,Arial,sans-serif;font-size:14px;font-weight:600;letter-spacing:.6px;padding:6px 24px;pointer-events:auto;text-transform:none
+}
+
+.google-codelab-0 .navbutton.nextbutton.google-codelab {
+  background:#1a73e8;color:#fff
+}
+
+.google-codelab-0 .navbutton.prevbutton.google-codelab {
+  background:#fff;color:#1a73e8;transition:-webkit-transform .3s ease-in-out;transition:transform .3s ease-in-out;transition:transform .3s ease-in-out,-webkit-transform .3s ease-in-out
+}
+
+.google-codelab-0 .navbutton.prevbutton[disabled].google-codelab {
+  -webkit-transform:scale(0);color:#fff;transform:scale(0)
+}
+
+.google-codelab-0 .navbutton.donebutton.google-codelab {
+  background:#1e8e3e;color:#fff
+}
+
+.google-codelab-0 #toc.google-codelab {
+  margin-bottom:1.5em
+}
+
+.google-codelab-0 .toc-item.google-codelab {
+  border-radius:4px;box-sizing:content-box;color:#80868b;font-size:14px;font-weight:400;line-height:20px;overflow:hidden;padding:6px 16px
+}
+
+.google-codelab-0 .toc-item.google-codelab i.google-codelab {
+  background:#80868b;border-radius:50%;color:#fff;display:inline-block;font-style:normal;height:26px;line-height:26px;margin-right:8px;min-width:26px;text-align:center;vertical-align:middle;width:26px
+}
+
+.google-codelab-0 .toc-item.google-codelab i.google-codelab:after,.google-codelab-0 .toc-item.google-codelab i.google-codelab:before {
+  border-left:1px solid #80868b;border-right:1px solid #80868b;content:"";display:block;height:44px;margin-top:1px;width:0;z-index:1
+}
+
+.google-codelab-0 .toc-item.google-codelab i.google-codelab:before {
+  margin-left:11px;margin-top:-44px
+}
+
+.google-codelab-0 .toc-item.google-codelab i.google-codelab:after {
+  margin-left:11px
+}
+
+.google-codelab-0 .toc-item.completed.google-codelab {
+  color:#212124
+}
+
+.google-codelab-0 .toc-item.completed.google-codelab i.google-codelab,.google-codelab-0 .toc-item.iron-selected.google-codelab i.google-codelab {
+  background-color:#1a73e8
+}
+
+.google-codelab-0 .toc-item.iron-selected.google-codelab {
+  background-color:#dadce0;color:#212124;font-weight:600
+}
+
+.google-codelab-0 .toc-item.completed.google-codelab i.google-codelab,.google-codelab-0 .toc-item.completed.google-codelab i.google-codelab:after,.google-codelab-0 .toc-item.completed.google-codelab i.google-codelab:before,.google-codelab-0 .toc-item.iron-selected.google-codelab i.google-codelab,.google-codelab-0 .toc-item.iron-selected.google-codelab i.google-codelab:before {
+  border-color:#1a73e8
+}
+
+.google-codelab-0 .toc-item.google-codelab:first-of-type i.google-codelab:before,.google-codelab-0 .toc-item.google-codelab:last-of-type i.google-codelab:after {
+  display:none
+}
+
+.google-codelab-0 #metadata.google-codelab {
+  -ms-flex:0 0 80px;-webkit-flex:0 0 80px;color:#777;flex:0 0 80px;font-size:.7em
+}
+
+.google-codelab-0 #feedback.google-codelab a.google-codelab {
+  color:currentcolor
+}
+
+@media (min-width:641px) {
+.google-codelab-0:not([theme=minimal]) #pages.google-codelab {
+  margin-top:32px
+}
+
+.google-codelab-0 #controls.google-codelab {
+  bottom:32px;padding:0 32px
+}
+
+}</style><!-- Shady DOM styles for iron-jsonp-library --><!-- Shady DOM styles for google-youtube-api --><!-- Shady DOM styles for google-youtube --><style>body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+</style>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  
+  <title>See and Understand Text using OCR with Mobile Vision Text API for Android</title>
+  <script async="" src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/analytics.js"></script><script src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/webcomponents-lite.min.js"></script><style type="text/css">
+:root div[style^="height: 16px; font: bold 12px/16px"],
+:root .nH.MC,
+:root .GISRH3UDHB,
+:root .GGQPGYLCMCB,
+:root .GGQPGYLCD5,
+:root .GC3LC41DERB + div[style="position: relative; height: 170px;"],
+:root #tadsc,
+:root #ad,
+:root #main-content > [style="padding:10px 0 0 0 !important;"],
+:root .ads-bg
+{ display: none !important; }</style>
+  <link rel="import" href="https://codelabs.developers.google.com/elements/codelab.html">
+  <link rel="stylesheet" href="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/css">
+  <style>
+    body {
+      font-family: "Roboto",sans-serif;
+    }
+  </style>
+  
+</head>
+<body class="fullbleed" data-gr-c-s-loaded="true">
+
+  <google-codelab title="See and Understand Text using OCR with Mobile Vision Text API for Android" environment="web" feedback-link="https://github.com/googlesamples/android-vision/issues" class="x-scope google-codelab-0"><iron-localstorage hidden="" class="style-scope google-codelab"></iron-localstorage><app-drawer-layout fullbleed="" class="style-scope google-codelab x-scope app-drawer-layout-0">
+
+<div id="contentContainer" class="style-scope app-drawer-layout" style="margin-left: 256px;">
+<app-header-layout fullbleed="" class="style-scope google-codelab x-scope app-header-layout-0">
+
+
+<div id="contentContainer" class="style-scope app-header-layout">
+<div id="headerpanel" fixed="" class="style-scope google-codelab"><div id="main-toolbar" class="style-scope google-codelab"><div class="style-scope google-codelab"><template is="dom-if" strip-whitespace="" class="style-scope google-codelab"></template><paper-icon-button icon="arrow-back" class="style-scope google-codelab x-scope paper-icon-button-0" role="button" tabindex="0" aria-disabled="false"><iron-icon id="icon" class="style-scope paper-icon-button x-scope iron-icon-1"><svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" class="style-scope iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;"><g class="style-scope iron-icon"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" class="style-scope iron-icon"></path></g></svg>
+
+</iron-icon></paper-icon-button><template is="dom-if" strip-whitespace="" class="style-scope google-codelab"></template></div><h3 class="title style-scope google-codelab">See and Understand Text using OCR with Mobile Vision Text API for Android</h3><div title="Time remaining" class="countdown layout horizontal style-scope google-codelab"><iron-icon icon="schedule" class="style-scope google-codelab x-scope iron-icon-0"><svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" class="style-scope iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;"><g class="style-scope iron-icon"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" class="style-scope iron-icon"></path></g></svg>
+
+</iron-icon><span class="style-scope google-codelab">31 min remaining</span></div></div></div><div id="main-content" class="style-scope google-codelab"><neon-animated-pages id="pages" class="style-scope google-codelab">
+
+<google-codelab-step label="Overview" duration="1" class="x-scope google-codelab-step-0 iron-selected"><div class="instructions style-scope google-codelab-step"><div class="inner style-scope google-codelab-step"><h2 id="title" class="style-scope google-codelab-step"><span class="style-scope google-codelab-step">1</span>. <span class="style-scope google-codelab-step">Overview</span></h2>
+        <p>Optical Character Recognition (OCR) gives a computer the ability to read text that appears in an image, letting applications make sense of signs, articles, flyers, pages of text, menus, or any other place that text appears as part of an image.  The Mobile Vision Text API gives Android developers a powerful and reliable OCR capability that works with most Android devices and won't increase the size of your app.</p>
+<p>In this codelab, you will build an app that shows a live camera preview and speaks any text it sees there.  Along the way, you'll learn how to use the Mobile Vision API to delight and empower your users.</p>
+<h3 class="checklist">What you'll learn</h3>
+<ul class="checklist">
+<li>Initializing the Mobile Vision TextRecognizer.</li>
+<li>Setting up a Processor to receive frames from a camera as they come in and look for text.</li>
+<li>Rendering out that text to the screen at its location.</li>
+<li>Sending that text to Android's TextToSpeech engine to speak it aloud.</li>
+</ul>
+<h3>What you'll need</h3>
+<ul>
+<li><a href="https://developer.android.com/sdk/installing/studio.html" target="_blank">Android Studio</a> version 3.1+</li>
+<li>The sample code.</li>
+<li>A test device with Android 4.1+ and a rear-facing camera.</li>
+<li>A USB micro/USB-C (whichever your device requires) cable.</li>
+</ul>
+<google-codelab-survey survey-id="mobile-vision-ocr-1" class="x-scope google-codelab-survey-0"><iron-localstorage class="style-scope google-codelab-survey"></iron-localstorage><div class="survey style-scope google-codelab-survey">
+<h4>How will you use this tutorial?</h4>
+<paper-radio-group role="radiogroup" tabindex="0" class="x-scope paper-radio-group-0">
+
+<paper-radio-button role="radio" tabindex="-1" toggles="" aria-checked="false" aria-disabled="false" class="x-scope paper-radio-button-1"><div id="radioContainer" class="style-scope paper-radio-button"><div id="offRadio" class="style-scope paper-radio-button"></div><div id="onRadio" class="style-scope paper-radio-button"></div></div><div id="radioLabel" class="style-scope paper-radio-button">Read it through only</div></paper-radio-button><paper-radio-button role="radio" tabindex="-1" toggles="" aria-checked="false" aria-disabled="false" class="x-scope paper-radio-button-1"><div id="radioContainer" class="style-scope paper-radio-button"><div id="offRadio" class="style-scope paper-radio-button"></div><div id="onRadio" class="style-scope paper-radio-button"></div></div><div id="radioLabel" class="style-scope paper-radio-button">Read it and complete the exercises</div></paper-radio-button>
+</paper-radio-group>
+<h4>How would rate your experience with building Android apps?</h4>
+<paper-radio-group role="radiogroup" tabindex="0" class="x-scope paper-radio-group-0">
+
+<paper-radio-button role="radio" tabindex="-1" toggles="" aria-checked="false" aria-disabled="false" class="x-scope paper-radio-button-1"><div id="radioContainer" class="style-scope paper-radio-button"><div id="offRadio" class="style-scope paper-radio-button"></div><div id="onRadio" class="style-scope paper-radio-button"></div></div><div id="radioLabel" class="style-scope paper-radio-button">Novice</div></paper-radio-button><paper-radio-button role="radio" tabindex="-1" toggles="" aria-checked="false" aria-disabled="false" class="x-scope paper-radio-button-1"><div id="radioContainer" class="style-scope paper-radio-button"><div id="offRadio" class="style-scope paper-radio-button"></div><div id="onRadio" class="style-scope paper-radio-button"></div></div><div id="radioLabel" class="style-scope paper-radio-button">Intermediate</div></paper-radio-button><paper-radio-button role="radio" tabindex="-1" toggles="" aria-checked="false" aria-disabled="false" class="x-scope paper-radio-button-1"><div id="radioContainer" class="style-scope paper-radio-button"><div id="offRadio" class="style-scope paper-radio-button"></div><div id="onRadio" class="style-scope paper-radio-button"></div></div><div id="radioLabel" class="style-scope paper-radio-button">Proficient</div></paper-radio-button>
+</paper-radio-group>
+</div></google-codelab-survey>
+
+
+      </div></div></google-codelab-step><google-codelab-step label="Get the sample code" duration="2" class="x-scope google-codelab-step-0"><div class="instructions style-scope google-codelab-step"><div class="inner style-scope google-codelab-step"><h2 id="title" class="style-scope google-codelab-step"><span class="style-scope google-codelab-step">2</span>. <span class="style-scope google-codelab-step">Get the sample code</span></h2>
+        <p>You can either download all the sample code to your computer... </p>
+<p><a href="https://github.com/googlesamples/android-vision/archive/master.zip" target="_blank"><paper-button class="colored x-scope paper-button-0" raised="" role="button" tabindex="0" animated="" aria-disabled="false" elevation="1"><iron-icon icon="file-download" class="x-scope iron-icon-0"><svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" class="style-scope iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;"><g class="style-scope iron-icon"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" class="style-scope iron-icon"></path></g></svg>
+
+</iron-icon>Download Zip</paper-button></a></p>
+<p>...or clone the GitHub repository from the command line.</p>
+<pre>$ git clone https://github.com/googlesamples/android-vision.git</pre>
+<aside class="special"><p>The visionSamples repository contains many sample projects related to Mobile Vision. This codelab only uses two:</p>
+<ul>
+<li><img style="max-width: 20.00px" src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/bb745dc85ae69f6b.png"><strong>ocr-codelab/ocr-reader-start</strong>—The starting code that you'll build upon in this codelab.</li>
+<li><img style="max-width: 20.00px" src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/bb745dc85ae69f6b.png"><strong>ocr-codelab/ocr-reader-complete</strong>—The complete code for the finished sample app; you can use this for troubleshooting or to skip to a working example.</li>
+</ul>
+</aside>
+
+
+      </div></div></google-codelab-step><google-codelab-step label="Update Google Play Services" duration="1" class="x-scope google-codelab-step-0"><div class="instructions style-scope google-codelab-step"><div class="inner style-scope google-codelab-step"><h2 id="title" class="style-scope google-codelab-step"><span class="style-scope google-codelab-step">3</span>. <span class="style-scope google-codelab-step">Update Google Play Services</span></h2>
+        <p>You may need to update your installed version of Google Repository in order to use the Mobile Vision Text API.</p>
+<p>Open Android Studio, and then open the SDK Manager:</p>
+<p><img style="max-width: 234.00px" src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/3c12ac47b079dee6.png"></p>
+<p>There, make sure your version of Google Repository is up to date.  It should be at least version 26.</p>
+<p><img style="max-width: 624.00px" src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/e26628d0f8802708.png"></p>
+
+
+      </div></div></google-codelab-step><google-codelab-step label="Add the Google Play Services dependencies and build the starter app" duration="4" class="x-scope google-codelab-step-0"><div class="instructions style-scope google-codelab-step"><div class="inner style-scope google-codelab-step"><h2 id="title" class="style-scope google-codelab-step"><span class="style-scope google-codelab-step">4</span>. <span class="style-scope google-codelab-step">Add the Google Play Services dependencies and build the starter app</span></h2>
+        <p>Now you're ready to open the starter project.</p>
+<ol type="1" start="1">
+<li>Select the <img style="max-width: 20.00px" src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/bb745dc85ae69f6b.png"><code>ocr-reader-start</code> directory from your sample code download (<strong>File</strong> &gt; <strong>Open </strong>&gt; <code>ocr-codelab/ocr-reader-start</code>).</li>
+<li>Add the Google Play Services dependency to the app.  Without this dependency, the Text API won't be available and you won't be able to build.</li>
+</ol>
+<aside class="warning"><p><strong>Important</strong>:  The project may open to an AndroidManifest.xml file with many errors and show a build error that <strong>integer/google_play_services_version is not found</strong>. This is fine, and we will fix it in the next step.</p>
+</aside>
+<p>Open the <code>build.gradle</code> file in the <code>app</code> module and change the dependencies block to include the play-services-vision dependency.  When you're done, it should look like this:</p>
+<pre><code>dependencies {
+implementation fileTree(dir: 'libs', include: ['*.jar'])
+implementation 'com.android.support:support-v4:26.1.0'
+implementation 'com.android.support:design:26.1.0'
+implementation 'com.google.android.gms:play-services-vision:15.0.0'
+}</code></pre>
+<ol type="1" start="3">
+<li><a href="http://developer.android.com/tools/device.html" target="_blank">Enable USB debugging</a> on your Android device.</li>
+<li>Click the <img style="max-width: 20.00px" src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/4682e6293c1bdb8b.png"><strong>Gradle sync </strong>button.</li>
+<li>Click the <img style="max-width: 20.00px" src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/74540ff4e857014c.png"><strong>Run </strong>button.</li>
+</ol>
+<p>After a few seconds, you should see the Read Text screen come up, but it's just a black screen.  </p>
+<p><img style="max-width: 624.00px" src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/3498e0c0dfc16d44.png"></p>
+<p>Right now, it doesn't do anything, and the <code>CameraSource</code> isn't set up. But we're going to change that next.</p>
+<aside class="warning"><p><strong>Important</strong>: If you get stuck, or the project doesn't build, you should open the <img style="max-width: 20.00px" src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/bb745dc85ae69f6b.png"><code>ocr-reader-complete</code> project and make sure that works properly.  That project is a finished version of the codelab, and if that version isn't working, you should review your environment and make sure everything with your device and Android Studio installation is correct.</p>
+</aside>
+<h3 class="faq">Frequently Asked Questions</h3>
+<ul class="faq">
+<li><a href="http://developer.android.com/tools/device.html" target="_blank">How do I enable USB debugging?</a></li>
+<li><a href="http://stackoverflow.com/a/16598454" target="_blank">Why doesn't Android Studio see my device?</a></li>
+<li><a href="http://stackoverflow.com/a/4786299" target="_blank">Android error: Failed to install *.apk on device *: timeout?</a><br></li>
+</ul>
+
+
+      </div></div></google-codelab-step><google-codelab-step label="Set up the TextRecognizer and CameraSource" duration="6" class="x-scope google-codelab-step-0"><div class="instructions style-scope google-codelab-step"><div class="inner style-scope google-codelab-step"><h2 id="title" class="style-scope google-codelab-step"><span class="style-scope google-codelab-step">5</span>. <span class="style-scope google-codelab-step">Set up the TextRecognizer and CameraSource</span></h2>
+        <p>To start things out, we're going to create our <code>TextRecognizer</code>.  This detector object processes images and determines what text appears within them.  Once it's initialized, a <code>TextRecognizer</code> can be used to detect text in all types of images.  Find the <code>createCameraSource</code> method and build a <code>TextRecognizer</code>.</p>
+<h3>OcrCaptureActivity.java</h3>
+<pre><code>private void createCameraSource(boolean autoFocus, boolean useFlash) {
+    Context context = getApplicationContext();
+
+    // TODO: Create the TextRecognizer
+    TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
+    // TODO: Set the TextRecognizer's Processor.
+
+    // TODO: Check if the TextRecognizer is operational.
+
+    // TODO: Create the mCameraSource using the TextRecognizer.
+}</code></pre>
+<p>Just like that, the <code>TextRecognizer</code> is built.  However, it might not work yet.  If the device does not have enough storage, or Google Play Services can't download the OCR dependencies, the <code>TextRecognizer</code> object may not be operational.  Before we start using it to recognize text, we should check that it's ready.  We'll add this check to <code>createCameraSource</code> after we initialized the <code>TextRecognizer</code>.</p>
+<h3>OcrCaptureActivity.java</h3>
+<pre><code>// TODO: Check if the TextRecognizer is operational.
+if (!textRecognizer.isOperational()) {
+    Log.w(TAG, "Detector dependencies are not yet available.");
+
+    // Check for low storage.  If there is low storage, the native library will not be
+    // downloaded, so detection will not become operational.
+    IntentFilter lowstorageFilter = new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW);
+    boolean hasLowStorage = registerReceiver(null, lowstorageFilter) != null;
+
+    if (hasLowStorage) {
+        Toast.makeText(this, R.string.low_storage_error, Toast.LENGTH_LONG).show();
+        Log.w(TAG, getString(R.string.low_storage_error));
+    }
+}</code></pre>
+<aside class="special"><p><strong>Note</strong>: If you have the OCR dependency in <code>AndroidManifest.xml</code> (which, in the case of this lab, was done for you), the OCR dependencies will automatically download when the app is installed on the device.  Because of this, most devices will have it available the first time you attempt to use your detector.  But it's an important condition to check in order to account for unexpected storage or connection issues.</p>
+</aside>
+<p>Now that we've checked that the <code>TextRecognizer</code> is operational, we could use it to detect individual frames.  But we want to do something a little more interesting: read text live in the camera view.  In order to do that, we'll create a <code>CameraSource</code>, which is a camera manager pre-configured for Vision processing.  We're going to set the resolution high and turn autofocus on, because that's a good match for recognizing small text.  If you knew your users would be looking at large blocks of text, like signage, you might use a lower resolution, which would be able to process frames more quickly.</p>
+<h3>OcrCaptureActivity.java</h3>
+<pre><code>// TODO: Create the cameraSource using the TextRecognizer.
+cameraSource =
+        new CameraSource.Builder(getApplicationContext(), textRecognizer)
+        .setFacing(CameraSource.CAMERA_FACING_BACK)
+        .setRequestedPreviewSize(1280, 1024)
+        .setRequestedFps(15.0f)
+        .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
+        .setFocusMode(autoFocus ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO : null)
+        .build();</code></pre>
+<aside class="special"><p><strong>Note</strong>: A <code>CameraSource</code> class, very similar to the one in this project, is also included directly in the <code>com.google.android.gms.vision</code> package.  Using that class may be preferable to writing your own camera manager.  However, if you want to integrate frame processing into an existing camera application, or have very specific needs, the <code>CameraSource</code> code in this sample makes an excellent reference for how to integrate a processor efficiently into your camera manager.</p>
+</aside>
+<p>Here's what the complete <code>createCameraSource</code> should look like when you're done:</p>
+<h3>OcrCaptureActivity.java</h3>
+<pre><code>private void createCameraSource(boolean autoFocus, boolean useFlash) {
+    Context context = getApplicationContext();
+
+    // Create the TextRecognizer
+    TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
+    // TODO: Set the TextRecognizer's Processor.
+
+    // Check if the TextRecognizer is operational.
+    if (!textRecognizer.isOperational()) {
+        Log.w(TAG, "Detector dependencies are not yet available.");
+
+        // Check for low storage.  If there is low storage, the native library will not be
+        // downloaded, so detection will not become operational.
+        IntentFilter lowstorageFilter = new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW);
+        boolean hasLowStorage = registerReceiver(null, lowstorageFilter) != null;
+
+        if (hasLowStorage) {
+            Toast.makeText(this, R.string.low_storage_error, Toast.LENGTH_LONG).show();
+            Log.w(TAG, getString(R.string.low_storage_error));
+        }
+    }
+
+    // Create the cameraSource using the TextRecognizer.
+    cameraSource =
+            new CameraSource.Builder(getApplicationContext(), textRecognizer)
+            .setFacing(CameraSource.CAMERA_FACING_BACK)
+            .setRequestedPreviewSize(1280, 1024)
+            .setRequestedFps(15.0f)
+            .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
+            .setFocusMode(autoFocus ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO : null)
+            .build();
+}</code></pre>
+<aside class="warning"><p><strong>Important</strong>: We create this <code>TextRecognizer</code> here, but we never call <code>release</code> on it.  That's because we're doing it implicitly in this Activity's <code>onDestroy</code> method.  When we call <code>release</code> on the <code>CameraSourcePreview</code>, it will release the <code>CameraSource</code>, and that in turn will release the <code>TextRecognizer</code> that we initialized the <code>CameraSource</code> with here.</p>
+<p>Calling <code>release</code> on your <code>Detector</code> is critical, because it needs to clean up native components.  Make sure your applications do it, implicitly or explicitly, when you're done with your text recognition.</p>
+</aside>
+<p>If you build the app now, you should see a live camera view!  But in order to process images from the camera, we need to handle that last TODO in <code>createCameraSource</code>: create a <code>Processor</code> to handle the text detections as they come in.  We'll do that in the next step. </p>
+
+
+      </div></div></google-codelab-step><google-codelab-step label="Create the OcrDetectorProcessor" duration="6" class="x-scope google-codelab-step-0"><div class="instructions style-scope google-codelab-step"><div class="inner style-scope google-codelab-step"><h2 id="title" class="style-scope google-codelab-step"><span class="style-scope google-codelab-step">6</span>. <span class="style-scope google-codelab-step">Create the OcrDetectorProcessor</span></h2>
+        <p>By now, your app could detect text on individual frames using the detect method on the <code>TextRecognizer</code>.  That's what you would do if you wanted to find text in a photograph or other image file.  But in order to read text straight from the camera, it's useful to implement a <code>Processor</code>, which will handle detections as often as they become available.</p>
+<p>Go to the <code>OcrDetectorProcessor</code> class and have it implement <code>Detector.Processor&lt;TextBlock&gt;</code>.  </p>
+<h3>OcrDetectorProcessor.java</h3>
+<pre><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">OcrDetectorProcessor</span><span class="pln"> </span><span class="kwd">implements</span><span class="pln"> </span><span class="typ">Detector</span><span class="pun">.</span><span class="typ">Processor</span><span class="pun">&lt;</span><span class="typ">TextBlock</span><span class="pun">&gt;</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">GraphicOverlay</span><span class="pun">&lt;</span><span class="typ">OcrGraphic</span><span class="pun">&gt;</span><span class="pln"> graphicOverlay</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="typ">OcrDetectorProcessor</span><span class="pun">(</span><span class="typ">GraphicOverlay</span><span class="pun">&lt;</span><span class="typ">OcrGraphic</span><span class="pun">&gt;</span><span class="pln"> ocrGraphicOverlay</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        graphicOverlay </span><span class="pun">=</span><span class="pln"> ocrGraphicOverlay</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+<p>That interface requires two methods be implemented.  The first, <code>receiveDetections</code>, will receive <code>TextBlocks</code> from the <code>TextRecognizer</code> as they become available.  The second, <code>release</code>, can be used to cleanly get rid of resources when the <code>TextRecognizer</code> is disposed of.  In this case, we only have to clear the graphic overlay, which cleans up all the <code>OcrGraphic</code> objects.</p>
+<p>We'll get the <code>TextBlocks</code> from the detection and create <code>OcrGraphic</code> objects for each text block that the processor detects.  For now, they won't render; we'll implement their draw behavior in the next step.</p>
+<h3>OcrDetectorProcessor.java</h3>
+<pre><code><span class="lit">@Override</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> receiveDetections</span><span class="pun">(</span><span class="typ">Detector</span><span class="pun">.</span><span class="typ">Detections</span><span class="pun">&lt;</span><span class="typ">TextBlock</span><span class="pun">&gt;</span><span class="pln"> detections</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    graphicOverlay</span><span class="pun">.</span><span class="pln">clear</span><span class="pun">();</span><span class="pln">
+    </span><span class="typ">SparseArray</span><span class="pun">&lt;</span><span class="typ">TextBlock</span><span class="pun">&gt;</span><span class="pln"> items </span><span class="pun">=</span><span class="pln"> detections</span><span class="pun">.</span><span class="pln">getDetectedItems</span><span class="pun">();</span><span class="pln">
+    </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> i </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln"> i </span><span class="pun">&lt;</span><span class="pln"> items</span><span class="pun">.</span><span class="pln">size</span><span class="pun">();</span><span class="pln"> </span><span class="pun">++</span><span class="pln">i</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">TextBlock</span><span class="pln"> item </span><span class="pun">=</span><span class="pln"> items</span><span class="pun">.</span><span class="pln">valueAt</span><span class="pun">(</span><span class="pln">i</span><span class="pun">);</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">item </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> item</span><span class="pun">.</span><span class="pln">getValue</span><span class="pun">()</span><span class="pln"> </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="str">"Processor"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Text detected! "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> item</span><span class="pun">.</span><span class="pln">getValue</span><span class="pun">());</span><span class="pln">
+            </span><span class="typ">OcrGraphic</span><span class="pln"> graphic </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">OcrGraphic</span><span class="pun">(</span><span class="pln">graphicOverlay</span><span class="pun">,</span><span class="pln"> item</span><span class="pun">);</span><span class="pln">
+            graphicOverlay</span><span class="pun">.</span><span class="kwd">add</span><span class="pun">(</span><span class="pln">graphic</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+</span><span class="lit">@Override</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> release</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    graphicOverlay</span><span class="pun">.</span><span class="pln">clear</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+<p>Now that the processor is ready, we have to set the <code>textRecognizer</code> to use it.  Head back to the last remaining TODO in the <code>createCameraSource</code> method in <code>OcrCaptureActivity</code>:</p>
+<h3>OcrCaptureActivity.java</h3>
+<pre><code><span class="com">// Create the TextRecognizer</span><span class="pln">
+</span><span class="typ">TextRecognizer</span><span class="pln"> textRecognizer </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">TextRecognizer</span><span class="pun">.</span><span class="typ">Builder</span><span class="pun">(</span><span class="pln">context</span><span class="pun">).</span><span class="pln">build</span><span class="pun">();</span><span class="pln">
+</span><span class="com">// TODO: Set the TextRecognizer's Processor.</span><span class="pln">
+textRecognizer</span><span class="pun">.</span><span class="pln">setProcessor</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">OcrDetectorProcessor</span><span class="pun">(</span><span class="pln">graphicOverlay</span><span class="pun">));</span></code></pre>
+<p>Now, build and run the app.  At this point, you should be able to point the camera at text and see the "Text detected!" debug messages appear in Android Monitor Logcat a few times a second!  But that's not a very intuitive way to visualize what the <code>TextRecognizer</code> is seeing.  </p>
+<p>In the next step, we'll put that text on screen.</p>
+
+
+      </div></div></google-codelab-step><google-codelab-step label="Draw the Graphics to screen" duration="5" class="x-scope google-codelab-step-0"><div class="instructions style-scope google-codelab-step"><div class="inner style-scope google-codelab-step"><h2 id="title" class="style-scope google-codelab-step"><span class="style-scope google-codelab-step">7</span>. <span class="style-scope google-codelab-step">Draw the Graphics to screen</span></h2>
+        <p>The debug message tells us that text is being recognized.  We'd like the user to see that, too, by drawing the text on top of the camera preview.</p>
+<p>Let's implement the <code>OcrGraphic</code> draw method.  We want to see if the graphic has text, translate its bounding box to the appropriate coordinates for the canvas, and then draw the box and text.</p>
+<h3>OcrGraphic.java</h3>
+<pre><code>@Override
+public void draw(Canvas canvas) {
+    // TODO: Draw the text onto the canvas.
+    if (text == null) {
+        return;
+    }
+
+    // Draws the bounding box around the TextBlock.
+    RectF rect = new RectF(text.getBoundingBox());
+    rect = translateRect(rect);
+    canvas.drawRect(rect, rectPaint);
+
+    // Render the text at the bottom of the box.
+    canvas.drawText(text.getValue(), rect.left, rect.bottom, textPaint);
+}</code></pre>
+<aside class="special"><p><strong>Note</strong>: Why do we have to translate the coordinates of the bounding box?  Because the bounding coordinates are relative to the frame that was detected on, not the one that we're viewing.  If you zoom in using pinch-to-zoom, for instance, they won't line up.</p>
+</aside>
+<p>Build and try it out on our sample text:</p>
+<p><img style="max-width: 624.00px" src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/c5134dae01ad22a5.png"></p>
+<p>You should see the box appear on screen with the text in it!  Feel free to play with the color values using <code>TEXT_COLOR</code>.</p>
+<p>But how about this one?</p>
+<p><img style="max-width: 624.00px" src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/ca01e9a550a9d1e0.png"></p>
+<p>The bounding box looks right, but the text is all at the bottom of the box.  </p>
+<p><img style="max-width: 624.00px" src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/8722468e41d61f69.png"></p>
+<p>That's because the engine puts all the text it recognizes in a <code>TextBlock</code> into one complete sentence, even if it sees the sentence broken over multiple lines.  If you want the complete sentence, that's very useful.  But what if you want to know where each individual line of text actually is?</p>
+<p>You can get the <code>Lines</code> from a <code>TextBlock</code> by calling <code>getComponents</code>, and then you can iterate over each line to get the location and values of the text within it.  This lets you put the text in the place it actually appears.</p>
+<h3>OcrGraphic.java</h3>
+<pre><code>@Override
+public void draw(Canvas canvas) {
+    // TODO: Draw the text onto the canvas.
+    if (text == null) {
+        return;
+    }
+
+    // Draws the bounding box around the TextBlock.
+    RectF rect = new RectF(text.getBoundingBox());
+    rect = translateRect(rect);
+    canvas.drawRect(rect, rectPaint);
+
+    // Break the text into multiple lines and draw each one according to its own bounding box.
+    List&lt;? extends Text&gt; textComponents = text.getComponents();
+    for(Text currentText : textComponents) {
+        float left = translateX(currentText.getBoundingBox().left);
+        float bottom = translateY(currentText.getBoundingBox().bottom);
+        canvas.drawText(currentText.getValue(), left, bottom, textPaint);
+    }
+}</code></pre>
+<p>Try that again with the text:</p>
+<p><img style="max-width: 624.00px" src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/ca01e9a550a9d1e0.png"></p>
+<p>Better!  You can choose how granular you want to go based on your application's needs.  If you like, you can call <code>getComponents</code> on each <code>Line</code> and get the positions of the actual <code>Elements</code> (words, in Latin languages).  You can also customize the <code>textSize</code> to fill as much space as the actual text does on screen.</p>
+<p><img style="max-width: 624.00px" src="./See and Understand Text using OCR with Mobile Vision Text API for Android_files/2397682ee22f4c14.png"></p>
+<p>Now that we can see where the text is and what it says, let's do something with it.</p>
+
+
+      </div></div></google-codelab-step><google-codelab-step label="Make the app speak the text when you tap" duration="6" class="x-scope google-codelab-step-0"><div class="instructions style-scope google-codelab-step"><div class="inner style-scope google-codelab-step"><h2 id="title" class="style-scope google-codelab-step"><span class="style-scope google-codelab-step">8</span>. <span class="style-scope google-codelab-step">Make the app speak the text when you tap</span></h2>
+        <p>Now, text from the camera has been converted to useful, structured <code>Strings</code>, and these <code>Strings</code> are being displayed on screen.  Let's do something else with them.  </p>
+<p>By using the TextToSpeech API built into Android, and implementing the <code>contains</code> method in <code>OcrGraphic</code>, we can make the app speak the text out loud when the <code>TextBlock</code> graphic is touched.</p>
+<p>First, let's implement the contains method in <code>OcrGraphic</code>.  The <code>getGraphicAtLocation</code> method in <code>GraphicOverlay</code> is already moving the x and y values into the <code>View</code>'s coordinates, so what's left for us to do it check if those coordinates happen to be within the bounds of this graphic's displayed bounding box. </p>
+<h3>OcrGraphic.java</h3>
+<pre><code>public boolean contains(float x, float y) {
+    // TODO: Check if this graphic's text contains this point.
+    if (text == null) {
+        return false;
+    }
+    RectF rect = new RectF(text.getBoundingBox());
+    rect = translateRect(rect);
+    return rect.contans(x, y);
+}</code></pre>
+<aside class="special"><p><strong>Note</strong>: This is a lot of shared functionality with the Draw method!  Normally, you would refactor out the shared code, but we'll leave it be for the example.</p>
+</aside>
+<p>Now that we can check for whether text is contained at a location, let's go to the <code>onTap</code> method of <code>OcrCaptureActivity</code> and handle the tap action by checking for a graphic.</p>
+<h3>OcrCaptureActivity.java</h3>
+<pre><code>private boolean onTap(float rawX, float rawY) {
+    // TODO: Speak the text when the user taps on screen.
+    OcrGraphic graphic = graphicOverlay.getGraphicAtLocation(rawX, rawY);
+    TextBlock text = null;
+    if (graphic != null) {
+        text = graphic.getTextBlock();
+        if (text != null &amp;&amp; text.getValue() != null) {
+            Log.d(TAG, "text data is being spoken! " + text.getValue());
+            // TODO: Speak the string.
+        }
+        else {
+            Log.d(TAG, "text data is null");
+        }
+    }
+    else {
+        Log.d(TAG,"no text detected");
+    }
+    return text != null;
+}</code></pre>
+<p>With that in place, you should be able to build and check via Android Monitor (adb logcat) that text is being tapped when you expect it to.</p>
+<p>How about speaking the text out loud?  Go to the top of the <code>Activity</code> and find the <code>onCreate</code> method.  When we start the app, we should initialize the <code>TextToSpeech</code> engine so it's ready when we need it.  There's already a <code>TextToSpeech</code> class variable, so we just need to initialize it with the context and a generic <code>OnInitListener</code>.</p>
+<p><strong>OcrCaptureActivity.java</strong></p>
+<pre><code>@Override
+public void onCreate(Bundle bundle) {
+
+    // (Portions of this method omitted)
+
+    // TODO: Set up the Text To Speech engine.
+    TextToSpeech.OnInitListener listener =
+            new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(final int status) {
+                    if (status == TextToSpeech.SUCCESS) {
+                        Log.d("TTS", "Text to speech engine started successfully.");
+                        tts.setLanguage(Locale.US);
+                    } else {
+                        Log.d("TTS", "Error starting the text to speech engine.");
+                    }
+                }
+            };
+    tts = new TextToSpeech(this.getApplicationContext(), listener);
+}</code></pre>
+<aside class="warning"><p><strong>Important</strong>: While this is a good way to get started with the <code>TextToSpeech</code> engine, you would normally need to handle common error conditions, such as the engine not being ready before you tap for the first time.</p>
+<p><code>TextToSpeech</code> is also language-specific, as you can see here.  You may want to change its language setting based on the language of recognized text.  While detecting language isn't built into the Mobile Vision Text API, it is available through the <a href="https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/" target="_blank">Google Translate API</a>.  Alternatively, you could infer the likely language of the user by using the device's <a href="http://developer.android.com/reference/java/util/Locale.html" target="_blank">Locale</a>.</p>
+</aside>
+<p>Okay, all that's left is to add the code to speak the string out loud in the <code>onTap</code> method.</p>
+<h3>OcrCaptureActivity.java</h3>
+<pre><code>private boolean onTap(float rawX, float rawY) {
+    // TODO: Speak the text when the user taps on screen.
+    OcrGraphic graphic = graphicOverlay.getGraphicAtLocation(rawX, rawY);
+    TextBlock text = null;
+    if (graphic != null) {
+        text = graphic.getTextBlock();
+        if (text != null &amp;&amp; text.getValue() != null) {
+            Log.d(TAG, "text data is being spoken! " + text.getValue());
+            // Speak the string.
+            tts.speak(text.getValue(), TextToSpeech.QUEUE_ADD, null, "DEFAULT");
+        }
+        else {
+            Log.d(TAG, "text data is null");
+        }
+    }
+    else {
+        Log.d(TAG,"no text detected");
+    }
+    return text != null;
+}</code></pre>
+<p>Now, when you build the app and tap on detected text, it should be spoken aloud.  Try it out!</p>
+
+
+      </div></div></google-codelab-step><google-codelab-step label="Congratulations!" duration="0" class="x-scope google-codelab-step-0"><div class="instructions style-scope google-codelab-step"><div class="inner style-scope google-codelab-step"><h2 id="title" class="style-scope google-codelab-step"><span class="style-scope google-codelab-step">9</span>. <span class="style-scope google-codelab-step">Congratulations!</span></h2>
+        <p>You've got an app that can read text straight from the camera and speak it out loud!</p>
+<p>From here, you're well set up to explore lots of other possible uses for Text Detection in your own apps. Read addresses and phone numbers from business cards, make images of documents useful or searchable, and assist with translation or accessibility.  Apply OCR wherever you want to understand the text contained in an image.</p>
+<h3 class="checklist"><strong>What we've covered</strong></h3>
+<ul class="checklist">
+<li>We set up and used the Mobile Vision Text API to read the text visible from the device's camera. </li>
+<li>We rendered that text to screen, and read it out loud using the Android TextToSpeech.</li>
+</ul>
+<h3>Next Steps</h3>
+<ul>
+<li>Explore other features of the Text API: render the individual words at their locations on screen, or make a real-time "redacter" that renders a black box on top of a particular word wherever it appears.</li>
+<li>The bounding boxes around text give you the information you need to approximate the size of the text as well as its location.  Try modifying the <code>OcrGraphic</code> to make the text sizes match their real-life counterparts.</li>
+<li>Try using the other Vision APIs and find ways to combine these capabilities to enable entirely new uses.</li>
+</ul>
+<h3>Learn More</h3>
+<ul>
+<li>Learn about other Vision capabilities in the Mobile Vision <a href="https://developers.google.com/vision/" target="_blank">developer documentation</a>.</li>
+<li>Post questions and find answers on Stackoverflow under the <a href="http://stackoverflow.com/questions/tagged/android-vision" target="_blank">android-vision</a> tag.</li>
+</ul>
+
+
+      </div></div></google-codelab-step>
+</neon-animated-pages><footer id="controls" class="style-scope google-codelab"><div class="fabs layout horizontal justified style-scope google-codelab"><paper-button raised="" class="navbutton prevbutton style-scope google-codelab x-scope paper-button-0" title="Previous step" role="button" tabindex="-1" animated="" aria-disabled="true" elevation="0" style="pointer-events: none;" disabled="">Back</paper-button><div class="style-scope google-codelab"><paper-button raised="" class="navbutton nextbutton style-scope google-codelab x-scope paper-button-0" role="button" tabindex="0" animated="" aria-disabled="false" elevation="1" title="Start codelab">Next</paper-button><template is="dom-if" strip-whitespace="" class="style-scope google-codelab"></template><template is="dom-if" strip-whitespace="" class="style-scope google-codelab"></template></div></div></footer></div>
+</div>
+</app-header-layout>
+</div>
+<app-drawer id="drawer" swipe-open="" class="style-scope google-codelab x-scope app-drawer-0" position="left" style="transition-duration: 200ms; touch-action: pan-y;" persistent="" opened="">
+
+<div id="scrim" class="style-scope app-drawer" style="transition-duration: 200ms;"></div>
+<div id="contentContainer" class="style-scope app-drawer" style="transition-duration: 200ms;">
+<div class="drawer-content-wrapper layout vertical style-scope google-codelab" style="height:100%"><div class="flex style-scope google-codelab" style="overflow:auto;"><div title="Time remaining" class="countdown layout horizontal style-scope google-codelab"><iron-icon icon="schedule" class="style-scope google-codelab x-scope iron-icon-0"><svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" class="style-scope iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;"><g class="style-scope iron-icon"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" class="style-scope iron-icon"></path></g></svg>
+
+</iron-icon><span class="style-scope google-codelab">31 min remaining</span></div><paper-menu id="toc" class="flex style-scope google-codelab x-scope paper-menu-0" role="menu" tabindex="0">
+
+
+<div class="selectable-content style-scope paper-menu">
+<paper-item class="toc-item style-scope google-codelab x-scope paper-item-0 iron-selected" role="option" tabindex="0" aria-disabled="false" aria-selected="true" focused="">
+
+
+<i class="style-scope google-codelab">1</i><span class="style-scope google-codelab">Overview</span>
+</paper-item><paper-item class="toc-item style-scope google-codelab x-scope paper-item-0" role="option" tabindex="-1" aria-disabled="false">
+
+
+<i class="style-scope google-codelab">2</i><span class="style-scope google-codelab">Get the sample code</span>
+</paper-item><paper-item class="toc-item style-scope google-codelab x-scope paper-item-0" role="option" tabindex="-1" aria-disabled="false">
+
+
+<i class="style-scope google-codelab">3</i><span class="style-scope google-codelab">Update Google Play Services</span>
+</paper-item><paper-item class="toc-item style-scope google-codelab x-scope paper-item-0" role="option" tabindex="-1" aria-disabled="false">
+
+
+<i class="style-scope google-codelab">4</i><span class="style-scope google-codelab">Add the Google Play Services dependencies and build the starter app</span>
+</paper-item><paper-item class="toc-item style-scope google-codelab x-scope paper-item-0" role="option" tabindex="-1" aria-disabled="false">
+
+
+<i class="style-scope google-codelab">5</i><span class="style-scope google-codelab">Set up the TextRecognizer and CameraSource</span>
+</paper-item><paper-item class="toc-item style-scope google-codelab x-scope paper-item-0" role="option" tabindex="0" aria-disabled="false">
+
+
+<i class="style-scope google-codelab">6</i><span class="style-scope google-codelab">Create the OcrDetectorProcessor</span>
+</paper-item><paper-item class="toc-item style-scope google-codelab x-scope paper-item-0" role="option" tabindex="-1" aria-disabled="false">
+
+
+<i class="style-scope google-codelab">7</i><span class="style-scope google-codelab">Draw the Graphics to screen</span>
+</paper-item><paper-item class="toc-item style-scope google-codelab x-scope paper-item-0" role="option" tabindex="-1" aria-disabled="false">
+
+
+<i class="style-scope google-codelab">8</i><span class="style-scope google-codelab">Make the app speak the text when you tap</span>
+</paper-item><paper-item class="toc-item style-scope google-codelab x-scope paper-item-0" role="option" tabindex="-1" aria-disabled="false">
+
+
+<i class="style-scope google-codelab">9</i><span class="style-scope google-codelab">Congratulations!</span>
+</paper-item><template is="dom-repeat" strip-whitespace="" class="style-scope google-codelab"></template>
+</div>
+</paper-menu></div><div id="metadata" class="style-scope google-codelab"><template is="dom-if" strip-whitespace="" class="style-scope google-codelab"></template><div id="feedback" class="style-scope google-codelab">
+Did you find a mistake?
+<a target="_blank" class="style-scope google-codelab" href="https://github.com/googlesamples/android-vision/issues">Please file a bug</a>.
+</div></div></div>
+</div>
+</app-drawer>
+<iron-media-query class="style-scope app-drawer-layout" style="display: none;"></iron-media-query>
+</app-drawer-layout><paper-dialog id="resumeDialog" modal="" class="style-scope google-codelab x-scope paper-dialog-0" role="dialog" tabindex="-1" aria-hidden="true" style="outline: none; display: none;">
+
+<h2 class="style-scope google-codelab">Would you like to resume where you left off?</h2><p class="style-scope google-codelab">Step <span class="style-scope google-codelab">6</span>: <span class="style-scope google-codelab">Create the OcrDetectorProcessor</span></p><div class="buttons style-scope google-codelab"><paper-button dialog-dismiss="" class="style-scope google-codelab x-scope paper-button-0" role="button" tabindex="0" animated="" aria-disabled="false" elevation="0">Cancel</paper-button><paper-button dialog-confirm="" autofocus="" class="style-scope google-codelab x-scope paper-button-0" role="button" tabindex="0" animated="" aria-disabled="false" elevation="0">Resume</paper-button></div>
+</paper-dialog></google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = 'UA-77265754-1';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+
+
+</body></html>

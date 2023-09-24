@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://towardsdatascience.com/media/a4ab505d045640a3b8b3928cc7a0f7c6 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>articles_insert.py – Medium</title><meta name="description" content="GitHub Gist: instantly share code, notes, and snippets."><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style><style type="text/css">
+:root .mw > #rcnt > #center_col > #taw > .c,
+:root .mw > #rcnt > #center_col > #taw > #tvcap > .c,
+:root .ch[onclick="ga(this,event)"]
+{ display: none !important; }</style></head><body><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./926bcc05b0ad526c9f3f904c4d43fea4.js" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-a9a1cf2ca01efd362bfa52312712ae94.css"><div id="gist93712972" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-articles_insert-py" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-python ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tbody><tr>
+        <td id="file-articles_insert-py-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-articles_insert-py-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">try</span>:</td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-articles_insert-py-LC2" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> Instert all articles into the articles table.</span></td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-articles_insert-py-LC3" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> Note that we use INSERT IGNORE which means that duplicates will not be inserted to DB (checked against doi_link).</span></td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-articles_insert-py-LC4" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> key, item <span class="pl-k">in</span> all_articles.items():</td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-articles_insert-py-LC5" class="blob-code blob-code-inner js-file-line">        cursor.execute(<span class="pl-s"><span class="pl-pds">"""</span>INSERT IGNORE INTO articles (doi_link, title, abstract, publication_date, citations) </span></td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-articles_insert-py-LC6" class="blob-code blob-code-inner js-file-line"><span class="pl-s">                        VALUES ('<span class="pl-c1">{}</span>', '<span class="pl-c1">{}</span>', '<span class="pl-c1">{}</span>', '<span class="pl-c1">{}</span>', <span class="pl-c1">{}</span>);<span class="pl-pds">"""</span></span>.format(key, item[<span class="pl-c1">0</span>], item[<span class="pl-c1">1</span>], item[<span class="pl-c1">2</span>], <span class="pl-c1">int</span>(item[<span class="pl-c1">3</span>])))</td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-articles_insert-py-LC7" class="blob-code blob-code-inner js-file-line">        </td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-articles_insert-py-LC8" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> The for loop above can be replaced with:</span></td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-articles_insert-py-LC9" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> cur.executemany("""INSERT IGNORE INTO articles (doi_link, title, abstract, publication_date, citations) </span></td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-articles_insert-py-LC10" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span>                   VALUES ('{}', '{}', '{}', '{}', {});""".format(key, item[0], item[1], item[2], int(item[3])),</span></td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-articles_insert-py-LC11" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span>                   [--tuples of the data to be updated--])</span></td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-articles_insert-py-LC12" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-articles_insert-py-LC13" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Catch any error that might occur and logging it into the logs file.</span></td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-articles_insert-py-LC14" class="blob-code blob-code-inner js-file-line"><span class="pl-k">except</span> (<span class="pl-c1">KeyError</span>, <span class="pl-c1">IndexError</span>, <span class="pl-c1">TypeError</span>) <span class="pl-k">as</span> err:</td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-articles_insert-py-LC15" class="blob-code blob-code-inner js-file-line">    logger.error(<span class="pl-s"><span class="pl-pds">"</span>There was an error during articles insertion. The error: <span class="pl-c1">{}</span><span class="pl-pds">"</span></span>.format(err))</td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-articles_insert-py-LC16" class="blob-code blob-code-inner js-file-line">    </td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-articles_insert-py-LC17" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> Save the problematic articles to csv file for future inspection</span></td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-articles_insert-py-LC18" class="blob-code blob-code-inner js-file-line">    df <span class="pl-k">=</span> pd.DataFrame(<span class="pl-c1">list</span>(all_articles.values()), <span class="pl-v">index</span><span class="pl-k">=</span><span class="pl-c1">list</span>(all_articles.keys()))</td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-articles_insert-py-LC19" class="blob-code blob-code-inner js-file-line">    df.to_csv(<span class="pl-s"><span class="pl-pds">"</span>Articles.csv<span class="pl-pds">"</span></span>, <span class="pl-v">sep</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>,<span class="pl-pds">'</span></span>)</td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-articles_insert-py-LC20" class="blob-code blob-code-inner js-file-line">    </td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-articles_insert-py-LC21" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> This is for debugging. </span></td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-articles_insert-py-LC22" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> steps is a dict whose keys are the steps in the scraping processand its values are 1 or 0 (succeeded or failed)</span></td>
+      </tr>
+      <tr>
+        <td id="file-articles_insert-py-L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="file-articles_insert-py-LC23" class="blob-code blob-code-inner js-file-line">    steps[<span class="pl-s"><span class="pl-pds">'</span>Articles<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-c1">0</span></td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/ShaikeA/926bcc05b0ad526c9f3f904c4d43fea4/raw/bbab5deddaefa266fc101ed920b856712c0b46a3/articles_insert.py" style="float:right">view raw</a>
+        <a href="https://gist.github.com/ShaikeA/926bcc05b0ad526c9f3f904c4d43fea4#file-articles_insert-py">articles_insert.py</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200;function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height); resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);}maybeResize();</script></body></html>
